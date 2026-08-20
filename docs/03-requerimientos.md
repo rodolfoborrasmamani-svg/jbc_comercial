@@ -28,3 +28,10 @@
 - Debe construirse únicamente con HTML, CSS, JavaScript y Supabase.
 - Debe usarse el plan gratuito de Supabase (sin presupuesto para servicios pagos).
 - Debe funcionar en el navegador, sin instalar aplicaciones adicionales.
+
+## Priorización (MoSCoW)
+
+- Debe tener: RF-01, RF-02, RF-03, RF-04
+- Debería tener: RF-05, RF-06
+- Podría tener: (agrega aquí si te sobró alguno)
+- No por ahora: manejo de ventas fiadas / a crédito
