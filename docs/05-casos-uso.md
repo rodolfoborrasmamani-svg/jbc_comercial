@@ -28,7 +28,7 @@ La venta queda registrada y la existencia de los productos vendidos se actualiza
 ## CU-02: Consultar existencia de un producto
 
 • Historia relacionada: HU-02
-• Actor principal: Vendedor (Marta, Luis o Don Ernesto)
+• Actor principal: Vendedor (Sra. Maricruz, Brandon-Alejandro)
 • Precondición: existen productos registrados en el sistema.
 
 ### Flujo principal
@@ -57,7 +57,7 @@ inventario.
 ## CU-03: Registrar un nuevo producto
 
 • Historia relacionada: HU-03
-• Actor principal: Administrador (Don Ernesto)
+• Actor principal: Administrador (Sra.Maricruz)
 • Precondición: el administrador tiene acceso autorizado al sistema.
 
 ### Flujo principal
@@ -74,11 +74,12 @@ inventario.
 
 ### Flujos alternativos
 
-• 6a. Si el nombre está vacío, el sistema informa que es un dato obligatorio y no
-permite guardar.
-• 7a. Si el precio no es un número mayor que cero, el sistema muestra un mensaje
-de error.
+• 6a. Si el nombre está vacío, el sistema informa que es un dato obligatorio y no permite guardar.
+
+• 7a. Si el precio no es un número mayor que cero, el sistema muestra un mensaje de error.
+
 • 7b. Si la existencia ingresada no es válida, el sistema solicita corregirla.
+
 • 6b. Si el administrador cancela el registro, no se guarda ningún producto.
 
 ### Postcondición
@@ -89,7 +90,7 @@ futuras ventas.
 ## CU-04: Consultar total vendido en un periodo
 
 • Historia relacionada: HU-04
-• Actor principal: Administrador (Don Ernesto)
+• Actor principal: Administrador (Sra. Maricruz)
 • Precondición: existen ventas registradas en el sistema.
 
 ### Flujo principal
@@ -120,7 +121,7 @@ cálculos manuales.
 ## CU-05: Consultar resumen de ventas desde el celular
 
 • Historia relacionada: HU-05
-• Actor principal: Administrador (Don Ernesto)
+• Actor principal: Administrador (Sra. Maricruz)
 • Precondición: el administrador posee una cuenta autorizada y dispone de
 conexión a Internet.
 
