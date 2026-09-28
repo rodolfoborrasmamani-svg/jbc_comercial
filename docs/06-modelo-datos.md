@@ -18,6 +18,11 @@
 - Imagen:
 - Marca:
 
+### Categorias
+
+- id: identificador (clave primaria)
+- nombre: texto
+
 ### clientes
 
 - id: identificador (clave primaria)

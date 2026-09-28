@@ -1,0 +1,633 @@
+/* =========================================
+   JBC COMERCIAL
+   ESTILO AROMA
+   VERDE + NEGRO + FONDO CLARO
+========================================= */
+
+/* VARIABLES */
+
+:root {
+  --verde: #198754;
+
+  --verde-oscuro: #12663f;
+
+  --verde-claro: #e9f5ee;
+
+  --negro: #202a24;
+
+  --gris: #6f7a73;
+
+  --fondo: #f7f5f1;
+
+  --blanco: #ffffff;
+
+  --borde: #e5e1da;
+}
+
+/* RESET */
+
+* {
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+/* CUERPO */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: var(--fondo);
+
+  color: var(--negro);
+}
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.encabezado {
+  min-height: 78px;
+
+  padding: 0 7%;
+
+  background: var(--negro);
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* LOGO */
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.logo-icono {
+  width: 46px;
+
+  height: 46px;
+
+  background: var(--verde);
+
+  color: white;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 13px;
+
+  font-weight: bold;
+}
+
+.logo h1 {
+  font-family: Georgia, serif;
+
+  font-size: 25px;
+}
+
+.logo p {
+  margin-top: 3px;
+
+  color: #b8c1bb;
+
+  font-size: 9px;
+
+  letter-spacing: 1.5px;
+}
+
+/* MENÚ */
+
+.menu {
+  display: flex;
+
+  gap: 28px;
+}
+
+.menu a {
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition: 0.3s;
+}
+
+.menu a:hover {
+  color: #55c98a;
+}
+
+/* =========================================
+   CONTENEDOR
+========================================= */
+
+.contenedor {
+  width: 86%;
+
+  max-width: 1200px;
+
+  margin: 40px auto;
+}
+
+/* =========================================
+   BANNER
+========================================= */
+
+.bienvenida {
+  background: linear-gradient(135deg, #26352d, #42634f);
+
+  color: white;
+
+  border-radius: 20px;
+
+  padding: 40px 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+
+  box-shadow: 0 8px 20px rgba(40, 60, 45, 0.15);
+}
+
+.bienvenida-texto {
+  max-width: 680px;
+}
+
+.etiqueta {
+  color: #9ee0b8;
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  font-weight: bold;
+}
+
+.bienvenida h2 {
+  font-family: Georgia, serif;
+
+  font-size: 34px;
+
+  line-height: 1.2;
+
+  margin: 8px 0 12px;
+}
+
+.bienvenida p {
+  color: #e1eae4;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+/* ICONOS */
+
+.iconos {
+  display: flex;
+
+  gap: 12px;
+}
+
+.iconos span {
+  width: 65px;
+
+  height: 65px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 29px;
+}
+
+/* =========================================
+   CATEGORÍAS
+========================================= */
+
+.categorias {
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 15px;
+
+  margin-bottom: 30px;
+}
+
+.categoria {
+  background: white;
+
+  padding: 20px 10px;
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  border: 1px solid var(--borde);
+
+  transition: 0.3s;
+}
+
+.categoria:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--verde);
+
+  box-shadow: 0 8px 20px rgba(25, 135, 84, 0.12);
+}
+
+.categoria-icono {
+  width: 50px;
+
+  height: 50px;
+
+  margin: 0 auto 10px;
+
+  background: var(--verde-claro);
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+.categoria h3 {
+  font-size: 14px;
+
+  margin-bottom: 5px;
+}
+
+.categoria p {
+  color: var(--gris);
+
+  font-size: 11px;
+}
+
+/* =========================================
+   PANELES
+========================================= */
+
+.panel {
+  background: white;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+
+  border-radius: 17px;
+
+  border: 1px solid var(--borde);
+
+  box-shadow: 0 5px 18px rgba(60, 50, 40, 0.06);
+}
+
+/* TITULO */
+
+.panel-titulo {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.panel-titulo h2 {
+  font-family: Georgia, serif;
+
+  font-size: 22px;
+
+  color: var(--negro);
+}
+
+.panel-titulo p {
+  color: var(--gris);
+
+  font-size: 13px;
+
+  margin-top: 5px;
+}
+
+/* ICONO */
+
+.icono-panel {
+  width: 44px;
+
+  height: 44px;
+
+  background: var(--verde-claro);
+
+  color: var(--verde-oscuro);
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+/* =========================================
+   TABLA
+========================================= */
+
+.tabla-contenedor {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+#tabla-productos {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+#tabla-productos thead {
+  background: var(--negro);
+
+  color: white;
+}
+
+#tabla-productos th {
+  padding: 15px;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  font-weight: bold;
+}
+
+#tabla-productos td {
+  padding: 14px 15px;
+
+  border-bottom: 1px solid #eeeae4;
+
+  font-size: 14px;
+
+  color: #58625c;
+}
+
+#tabla-productos tbody tr:hover {
+  background: #f3faf6;
+}
+
+#tabla-productos td:nth-child(2) {
+  color: var(--verde-oscuro);
+
+  font-weight: bold;
+}
+
+/* =========================================
+   FORMULARIO
+========================================= */
+
+#form-venta {
+  display: grid;
+
+  grid-template-columns: 1fr 180px auto;
+
+  gap: 18px;
+
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.campo label {
+  font-size: 14px;
+
+  font-weight: bold;
+}
+
+.campo select,
+.campo input {
+  width: 100%;
+
+  padding: 13px;
+
+  background: #fffdf9;
+
+  border: 1px solid #ddd7ce;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.campo select:focus,
+.campo input:focus {
+  border-color: var(--verde);
+
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+/* BOTÓN */
+
+#form-venta button {
+  height: 45px;
+
+  padding: 0 23px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: var(--verde);
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+#form-venta button:hover {
+  background: var(--verde-oscuro);
+
+  transform: translateY(-2px);
+}
+
+/* MENSAJE */
+
+.mensaje-venta {
+  margin-top: 18px;
+
+  padding: 12px;
+
+  background: var(--verde-claro);
+
+  color: var(--verde-oscuro);
+
+  border-radius: 8px;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+  margin-top: 50px;
+
+  padding: 30px 20px;
+
+  background: var(--negro);
+
+  color: #b5bdb8;
+
+  text-align: center;
+
+  border-top: 3px solid var(--verde);
+}
+
+.footer-logo {
+  font-family: Georgia, serif;
+
+  color: white;
+
+  font-size: 20px;
+
+  margin-bottom: 8px;
+}
+
+.footer-logo strong {
+  color: #55c98a;
+}
+
+footer p {
+  font-size: 13px;
+}
+
+.copyright {
+  margin-top: 8px;
+
+  color: #7d8781;
+
+  font-size: 12px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .categorias {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .encabezado {
+    padding: 15px 5%;
+  }
+}
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 700px) {
+  .encabezado {
+    flex-direction: column;
+
+    gap: 15px;
+
+    padding: 18px 5%;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 15px;
+  }
+
+  .contenedor {
+    width: 92%;
+
+    margin: 25px auto;
+  }
+
+  .bienvenida {
+    padding: 30px;
+
+    text-align: center;
+
+    flex-direction: column;
+
+    gap: 25px;
+  }
+
+  .bienvenida h2 {
+    font-size: 27px;
+  }
+
+  .categorias {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  #form-venta {
+    grid-template-columns: 1fr;
+  }
+
+  #form-venta button {
+    width: 100%;
+  }
+}
