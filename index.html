@@ -2,7 +2,6 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>JBC Comercial</title>
@@ -11,7 +10,9 @@
   </head>
 
   <body>
-    <!-- ENCABEZADO -->
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
 
     <header class="encabezado">
       <div class="logo">
@@ -25,20 +26,22 @@
       </div>
 
       <nav class="menu">
-        <a href="#"> Inicio </a>
+        <a href="#inicio">Inicio</a>
 
         <a href="#productos"> Productos </a>
 
-        <a href="#venta"> Ventas </a>
+        <a href="#ingresar-producto"> Ingresar productos </a>
+
+        <a href="#registrar-venta"> Registrar venta </a>
 
         <a href="#contacto"> Contacto </a>
       </nav>
     </header>
 
-    <!-- CONTENIDO -->
-
-    <main class="contenedor">
-      <!-- BANNER PRINCIPAL -->
+    <main class="contenedor" id="inicio">
+      <!-- =========================
+             PRESENTACIÓN
+        ========================== -->
 
       <section class="bienvenida">
         <div class="bienvenida-texto">
@@ -54,14 +57,14 @@
 
         <div class="iconos">
           <span>🎤</span>
-
           <span>🔊</span>
-
           <span>🎧</span>
         </div>
       </section>
 
-      <!-- CATEGORÍAS -->
+      <!-- =========================
+             CATEGORÍAS
+        ========================== -->
 
       <section class="categorias">
         <div class="categoria">
@@ -113,7 +116,9 @@
         </div>
       </section>
 
-      <!-- PRODUCTOS -->
+      <!-- =========================
+             LISTA DE PRODUCTOS
+        ========================== -->
 
       <section class="panel" id="productos">
         <div class="panel-titulo">
@@ -143,28 +148,120 @@
         </div>
       </section>
 
-      <!-- VENTA -->
+      <!-- =================================================
+             FORMULARIO 1
+             INGRESAR PRODUCTOS
+        ================================================== -->
 
-      <section class="panel" id="venta">
-        <div class="panel-titulo">
-          <div>
-            <h2>Registrar venta</h2>
+      <section class="formulario-panel" id="ingresar-producto">
+        <div class="formulario-titulo">
+          <h2>INGRESAR PRODUCTOS</h2>
+        </div>
 
-            <p>Selecciona el producto y la cantidad</p>
+        <form id="form-producto">
+          <!-- CÓDIGO -->
+
+          <div class="campo-formulario">
+            <label for="campo-codigo"> CÓDIGO: </label>
+
+            <input
+              type="text"
+              id="campo-codigo"
+              name="codigo"
+              placeholder=""
+              required
+            />
           </div>
 
-          <div class="icono-panel">+</div>
+          <!-- CANTIDAD -->
+
+          <div class="campo-formulario">
+            <label for="campo-cantidad-producto"> CANTIDAD: </label>
+
+            <input
+              type="number"
+              id="campo-cantidad-producto"
+              name="cantidad"
+              min="1"
+              required
+            />
+          </div>
+
+          <!-- NOMBRE DEL PRODUCTO -->
+
+          <div class="campo-formulario">
+            <label for="campo-nombre-producto"> NOMBRE DEL PRODUCTO: </label>
+
+            <input
+              type="text"
+              id="campo-nombre-producto"
+              name="nombre"
+              required
+            />
+          </div>
+
+          <!-- PRECIO -->
+
+          <div class="campo-formulario">
+            <label for="campo-precio-producto"> PRECIO DE VENTA: </label>
+
+            <input
+              type="number"
+              id="campo-precio-producto"
+              name="precio"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <!-- SEPARADOR -->
+
+          <div class="separador-formulario"></div>
+
+          <!-- CATEGORÍA -->
+
+          <div class="campo-formulario categoria-formulario">
+            <label for="campo-categoria"> CATEGORÍAS: </label>
+
+            <select id="campo-categoria" name="categoria" required>
+              <option value="">Seleccionar categoría</option>
+            </select>
+          </div>
+
+          <!-- BOTÓN -->
+
+          <button type="submit" class="btn-seleccionar">SELECCIONAR</button>
+
+          <p id="mensaje-producto" class="mensaje-formulario"></p>
+        </form>
+      </section>
+
+      <!-- =================================================
+             FORMULARIO 2
+             REGISTRAR VENTA
+        ================================================== -->
+
+      <section class="formulario-panel" id="registrar-venta">
+        <div class="formulario-titulo">
+          <h2>REGISTRAR VENTA</h2>
         </div>
 
         <form id="form-venta">
-          <div class="campo">
-            <label for="campo-producto"> Producto </label>
+          <!-- BUSCAR PRODUCTO -->
 
-            <select id="campo-producto" required></select>
+          <div class="campo-formulario campo-busqueda">
+            <label for="campo-producto"> Buscar producto: </label>
+
+            <select id="campo-producto" required>
+              <option value="">Seleccionar producto</option>
+            </select>
           </div>
 
-          <div class="campo">
-            <label for="campo-cantidad"> Cantidad </label>
+          <!-- CANTIDAD -->
+
+          <div class="campo-formulario">
+            <label for="campo-cantidad"> Cantidad: </label>
 
             <input
               type="number"
@@ -175,14 +272,57 @@
             />
           </div>
 
-          <button type="submit">Registrar venta</button>
-        </form>
+          <!-- SEPARADOR -->
 
-        <p id="mensaje-venta" class="mensaje-venta"></p>
+          <div class="separador-formulario venta-separador"></div>
+
+          <!-- PRODUCTOS DE LA VENTA -->
+
+          <div class="detalle-venta">
+            <div class="detalle-cabecera">
+              <span> PRODUCTOS </span>
+
+              <span> TOTAL </span>
+            </div>
+
+            <div id="lista-venta" class="lista-venta">
+              <!--
+                        Aquí JavaScript agregará
+                        los productos seleccionados.
+                        -->
+            </div>
+          </div>
+
+          <!-- TOTAL -->
+
+          <div class="total-venta">
+            <span> TOTAL: </span>
+
+            <strong id="total-venta"> 0,00 Bs </strong>
+          </div>
+
+          <!-- BOTONES -->
+
+          <div class="botones-venta">
+            <button type="button" id="btn-cancelar" class="btn-cancelar">
+              CANCELAR
+            </button>
+
+            <button type="submit" class="btn-confirmar">
+              CONFIRMAR
+              <br />
+              VENTA
+            </button>
+          </div>
+
+          <p id="mensaje-venta" class="mensaje-formulario"></p>
+        </form>
       </section>
     </main>
 
-    <!-- PIE -->
+    <!-- =========================
+         PIE DE PÁGINA
+    ========================== -->
 
     <footer id="contacto">
       <div class="footer-logo">JBC <strong>Comercial</strong></div>
@@ -192,7 +332,9 @@
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
 
-    <!-- SCRIPTS -->
+    <!-- =========================
+         SUPABASE
+    ========================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
