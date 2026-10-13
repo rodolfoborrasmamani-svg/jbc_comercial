@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ventas | JBC Comercial</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+
+  <body>
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+      <div class="logo">
+        <div class="logo-icono">JBC</div>
+        <div>
+          <h1>JBC Comercial</h1>
+          <p>EQUIPOS DE AUDIO Y TECNOLOGÍA</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="../index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html" class="activo">Ventas</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main class="contenedor">
+      <!-- CABECERA DE LA PÁGINA -->
+      <section class="cabecera-pagina">
+        <span class="etiqueta"> VENTAS </span>
+        <h2>Registro de ventas</h2>
+        <p>Inicia sesión, añade los productos y confirma la venta.</p>
+      </section>
+
+      <!-- INICIAR SESIÓN -->
+      <section class="formulario-panel login-panel" id="iniciar-sesion">
+        <div class="formulario-titulo">
+          <h2>INICIAR SESIÓN</h2>
+          <p>Ingrese sus datos para registrar ventas</p>
+        </div>
+
+        <form id="form-login">
+          <div class="campo-formulario">
+            <label for="campo-usuario"> CORREO ELECTRÓNICO: </label>
+            <input
+              type="email"
+              id="campo-usuario"
+              name="email"
+              placeholder="correo@jbccomercial.com"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="campo-password"> CONTRASEÑA: </label>
+            <input
+              type="password"
+              id="campo-password"
+              name="password"
+              placeholder="Ingrese su contraseña"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-seleccionar">INICIAR SESIÓN</button>
+
+          <p id="mensaje-login" class="mensaje-formulario"></p>
+        </form>
+
+        <!-- USUARIO CONECTADO -->
+        <div id="usuario-actual" class="usuario-conectado">
+          <div class="usuario-icono">👤</div>
+
+          <div class="usuario-informacion">
+            <span class="usuario-etiqueta"> USUARIO CONECTADO </span>
+            <strong id="nombre-usuario-actual"> </strong>
+          </div>
+
+          <button type="button" id="btn-cerrar-sesion" class="btn-cerrar">
+            CERRAR SESIÓN
+          </button>
+        </div>
+      </section>
+
+      <!-- REGISTRAR VENTA -->
+      <section class="formulario-panel" id="registrar-venta">
+        <div class="formulario-titulo">
+          <h2>REGISTRAR VENTA</h2>
+          <p>Añada uno o más productos a la venta</p>
+        </div>
+
+        <form id="form-venta">
+          <!-- VENDEDOR -->
+          <div class="usuario-venta-info">
+            <div class="usuario-venta-icono">👤</div>
+            <div>
+              <span> VENDEDOR </span>
+              <strong id="vendedor-venta"> Inicie sesión para vender </strong>
+            </div>
+          </div>
+
+          <!-- CLIENTE -->
+          <div class="campo-formulario">
+            <label for="campo-cliente"> CLIENTE: </label>
+            <select id="campo-cliente" name="cliente" required>
+              <option value="">Seleccionar cliente</option>
+            </select>
+            <small class="ayuda-campo">
+              ¿No está en la lista?
+              <a href="clientes.html">Registrar cliente</a>
+            </small>
+          </div>
+
+          <!-- AÑADIR PRODUCTO -->
+          <div class="fila-anadir">
+            <div class="campo-formulario campo-busqueda">
+              <label for="campo-producto"> BUSCAR PRODUCTO: </label>
+              <select id="campo-producto" name="id_producto">
+                <option value="">Seleccionar producto</option>
+              </select>
+            </div>
+
+            <div class="campo-formulario">
+              <label for="campo-cantidad"> CANTIDAD: </label>
+              <input
+                type="number"
+                id="campo-cantidad"
+                name="cantidad"
+                min="1"
+                value="1"
+              />
+            </div>
+          </div>
+
+          <button type="button" id="btn-anadir" class="btn-anadir">
+            + AÑADIR PRODUCTO A LA VENTA
+          </button>
+
+          <div class="separador-formulario venta-separador"></div>
+
+          <!-- DETALLE -->
+          <div class="detalle-venta">
+            <div class="detalle-cabecera">
+              <span> PRODUCTOS </span>
+              <span> TOTAL </span>
+            </div>
+
+            <div id="lista-venta" class="lista-venta"></div>
+          </div>
+
+          <!-- TOTAL -->
+          <div class="total-venta">
+            <span> TOTAL: </span>
+            <strong id="total-venta"> 0,00 Bs </strong>
+          </div>
+
+          <!-- BOTONES -->
+          <div class="botones-venta">
+            <button type="button" id="btn-cancelar" class="btn-cancelar">
+              CANCELAR
+            </button>
+
+            <button type="submit" class="btn-confirmar">
+              CONFIRMAR
+              <br />
+              VENTA
+            </button>
+          </div>
+
+          <p id="mensaje-venta" class="mensaje-formulario"></p>
+        </form>
+      </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto">
+      <div class="footer-logo">
+        JBC
+        <strong> Comercial </strong>
+      </div>
+      <p>Equipos de audio, tecnología y accesorios</p>
+      <p class="copyright">© 2026 JBC Comercial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/utilidades.js"></script>
+    <script src="../js/ventas.js"></script>
+  </body>
+</html>

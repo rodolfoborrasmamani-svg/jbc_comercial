@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes | JBC Comercial</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+
+  <body>
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+      <div class="logo">
+        <div class="logo-icono">JBC</div>
+        <div>
+          <h1>JBC Comercial</h1>
+          <p>EQUIPOS DE AUDIO Y TECNOLOGÍA</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="../index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="clientes.html" class="activo">Clientes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main class="contenedor">
+      <!-- CABECERA DE LA PÁGINA -->
+      <section class="cabecera-pagina">
+        <span class="etiqueta"> CLIENTES </span>
+        <h2>Registro de clientes</h2>
+        <p>Guarda el nombre, carnet de identidad y celular de cada cliente.</p>
+      </section>
+
+      <!-- REGISTRAR CLIENTE -->
+      <section class="formulario-panel" id="registrar-cliente">
+        <div class="formulario-titulo">
+          <h2>REGISTRAR CLIENTE</h2>
+          <p>Complete los datos del cliente</p>
+        </div>
+
+        <form id="form-cliente" novalidate>
+          <div class="campo-formulario">
+            <label for="campo-nombre-cliente"> NOMBRE COMPLETO: </label>
+            <input
+              type="text"
+              id="campo-nombre-cliente"
+              name="nombre"
+              placeholder="Nombre y apellidos"
+              autocomplete="name"
+              required
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="campo-carnet"> CARNET DE IDENTIDAD: </label>
+            <input
+              type="text"
+              id="campo-carnet"
+              name="carnet"
+              placeholder="Ej. 1234567"
+              inputmode="text"
+              maxlength="15"
+              required
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="campo-celular"> NÚMERO DE CELULAR: </label>
+            <input
+              type="tel"
+              id="campo-celular"
+              name="celular"
+              placeholder="Ej. 71234567"
+              inputmode="numeric"
+              maxlength="12"
+              autocomplete="tel"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-seleccionar">
+            REGISTRAR CLIENTE
+          </button>
+
+          <p id="mensaje-cliente" class="mensaje-formulario"></p>
+        </form>
+      </section>
+
+      <!-- LISTA DE CLIENTES -->
+      <section class="panel" id="lista-clientes">
+        <div class="panel-titulo">
+          <div>
+            <h2>Clientes registrados</h2>
+            <p>Busca por nombre, carnet o celular</p>
+          </div>
+          <div class="icono-panel">👥</div>
+        </div>
+
+        <div class="filtro-barra">
+          <div class="filtro-categoria">
+            <label for="buscar-cliente">Buscar</label>
+            <input
+              type="search"
+              id="buscar-cliente"
+              class="buscador"
+              placeholder="Nombre, carnet o celular"
+            />
+          </div>
+
+          <span
+            class="filtro-contador"
+            id="contador-clientes"
+            aria-live="polite"
+          ></span>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table id="tabla-clientes">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Carnet</th>
+                <th>Celular</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-clientes"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto">
+      <div class="footer-logo">
+        JBC
+        <strong> Comercial </strong>
+      </div>
+      <p>Equipos de audio, tecnología y accesorios</p>
+      <p class="copyright">© 2026 JBC Comercial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/utilidades.js"></script>
+    <script src="../js/clientes.js"></script>
+  </body>
+</html>

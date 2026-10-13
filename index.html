@@ -3,52 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>JBC Comercial</title>
-
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
   <body>
-    <!-- =========================
-         ENCABEZADO
-    ========================== -->
-
+    <!-- ENCABEZADO -->
     <header class="encabezado">
       <div class="logo">
         <div class="logo-icono">JBC</div>
-
         <div>
           <h1>JBC Comercial</h1>
-
           <p>EQUIPOS DE AUDIO Y TECNOLOGÍA</p>
         </div>
       </div>
 
       <nav class="menu">
-        <a href="#inicio">Inicio</a>
-
-        <a href="#productos"> Productos </a>
-
-        <a href="#ingresar-producto"> Ingresar productos </a>
-
-        <a href="#registrar-venta"> Registrar venta </a>
-
-        <a href="#contacto"> Contacto </a>
+        <a href="index.html" class="activo">Inicio</a>
+        <a href="pages/productos.html">Productos</a>
+        <a href="pages/ventas.html">Ventas</a>
+        <a href="pages/clientes.html">Clientes</a>
+        <a href="#contacto">Contacto</a>
       </nav>
     </header>
 
-    <main class="contenedor" id="inicio">
-      <!-- =========================
-             PRESENTACIÓN
-        ========================== -->
-
+    <main class="contenedor">
+      <!-- BIENVENIDA -->
       <section class="bienvenida">
         <div class="bienvenida-texto">
           <span class="etiqueta"> JBC COMERCIAL </span>
-
           <h2>Tecnología y sonido para tus proyectos</h2>
-
           <p>
             Encuentra micrófonos, parlantes, consolas, monitores, audífonos,
             cables y accesorios de audio.
@@ -62,284 +46,83 @@
         </div>
       </section>
 
-      <!-- =========================
-             CATEGORÍAS
-        ========================== -->
-
+      <!-- CATEGORÍAS: cada una abre productos.html ya filtrado -->
       <section class="categorias">
-        <div class="categoria">
+        <a
+          class="categoria"
+          href="pages/productos.html?categoria=Micr%C3%B3fonos"
+        >
           <div class="categoria-icono">🎤</div>
-
           <h3>Micrófonos</h3>
-
           <p>Micrófonos profesionales</p>
-        </div>
+        </a>
 
-        <div class="categoria">
+        <a class="categoria" href="pages/productos.html?categoria=Parlantes">
           <div class="categoria-icono">🔊</div>
-
           <h3>Parlantes</h3>
-
           <p>Sistemas de sonido</p>
-        </div>
+        </a>
 
-        <div class="categoria">
+        <a class="categoria" href="pages/productos.html?categoria=Consolas">
           <div class="categoria-icono">🎛️</div>
-
           <h3>Consolas</h3>
-
           <p>Mezcladores de audio</p>
-        </div>
+        </a>
 
-        <div class="categoria">
+        <a
+          class="categoria"
+          href="pages/productos.html?categoria=Aud%C3%ADfonos"
+        >
           <div class="categoria-icono">🎧</div>
-
           <h3>Audífonos</h3>
-
           <p>Monitoreo profesional</p>
-        </div>
+        </a>
 
-        <div class="categoria">
+        <a class="categoria" href="pages/productos.html?categoria=Cables">
           <div class="categoria-icono">🔌</div>
-
           <h3>Cables</h3>
-
           <p>Cables y conexiones</p>
-        </div>
+        </a>
 
-        <div class="categoria">
+        <a class="categoria" href="pages/productos.html?categoria=Monitores">
           <div class="categoria-icono">🖥️</div>
-
           <h3>Monitores</h3>
-
           <p>Monitores de estudio</p>
-        </div>
+        </a>
       </section>
 
-      <!-- =========================
-             LISTA DE PRODUCTOS
-        ========================== -->
+      <!-- ACCESOS A LAS SECCIONES DEL SISTEMA -->
+      <section class="accesos">
+        <a class="acceso" href="pages/productos.html">
+          <div class="acceso-icono">📦</div>
+          <h3>Productos</h3>
+          <p>Consulta el catálogo por categoría e ingresa productos nuevos.</p>
+        </a>
 
-      <section class="panel" id="productos">
-        <div class="panel-titulo">
-          <div>
-            <h2>Nuestros productos</h2>
+        <a class="acceso" href="pages/ventas.html">
+          <div class="acceso-icono">🧾</div>
+          <h3>Ventas</h3>
+          <p>Inicia sesión y registra ventas con varios productos.</p>
+        </a>
 
-            <p>Equipos disponibles en JBC Comercial</p>
-          </div>
-
-          <div class="icono-panel">JBC</div>
-        </div>
-
-        <div class="tabla-contenedor">
-          <table id="tabla-productos">
-            <thead>
-              <tr>
-                <th>Producto</th>
-
-                <th>Precio</th>
-
-                <th>Existencia</th>
-              </tr>
-            </thead>
-
-            <tbody id="cuerpo-productos"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- =================================================
-             FORMULARIO 1
-             INGRESAR PRODUCTOS
-        ================================================== -->
-
-      <section class="formulario-panel" id="ingresar-producto">
-        <div class="formulario-titulo">
-          <h2>INGRESAR PRODUCTOS</h2>
-        </div>
-
-        <form id="form-producto">
-          <!-- CÓDIGO -->
-
-          <div class="campo-formulario">
-            <label for="campo-codigo"> CÓDIGO: </label>
-
-            <input
-              type="text"
-              id="campo-codigo"
-              name="codigo"
-              placeholder=""
-              required
-            />
-          </div>
-
-          <!-- CANTIDAD -->
-
-          <div class="campo-formulario">
-            <label for="campo-cantidad-producto"> CANTIDAD: </label>
-
-            <input
-              type="number"
-              id="campo-cantidad-producto"
-              name="cantidad"
-              min="1"
-              required
-            />
-          </div>
-
-          <!-- NOMBRE DEL PRODUCTO -->
-
-          <div class="campo-formulario">
-            <label for="campo-nombre-producto"> NOMBRE DEL PRODUCTO: </label>
-
-            <input
-              type="text"
-              id="campo-nombre-producto"
-              name="nombre"
-              required
-            />
-          </div>
-
-          <!-- PRECIO -->
-
-          <div class="campo-formulario">
-            <label for="campo-precio-producto"> PRECIO DE VENTA: </label>
-
-            <input
-              type="number"
-              id="campo-precio-producto"
-              name="precio"
-              min="0"
-              step="0.01"
-              required
-            />
-          </div>
-
-          <!-- SEPARADOR -->
-
-          <div class="separador-formulario"></div>
-
-          <!-- CATEGORÍA -->
-
-          <div class="campo-formulario categoria-formulario">
-            <label for="campo-categoria"> CATEGORÍAS: </label>
-
-            <select id="campo-categoria" name="categoria" required>
-              <option value="">Seleccionar categoría</option>
-            </select>
-          </div>
-
-          <!-- BOTÓN -->
-
-          <button type="submit" class="btn-seleccionar">SELECCIONAR</button>
-
-          <p id="mensaje-producto" class="mensaje-formulario"></p>
-        </form>
-      </section>
-
-      <!-- =================================================
-             FORMULARIO 2
-             REGISTRAR VENTA
-        ================================================== -->
-
-      <section class="formulario-panel" id="registrar-venta">
-        <div class="formulario-titulo">
-          <h2>REGISTRAR VENTA</h2>
-        </div>
-
-        <form id="form-venta">
-          <!-- BUSCAR PRODUCTO -->
-
-          <div class="campo-formulario campo-busqueda">
-            <label for="campo-producto"> Buscar producto: </label>
-
-            <select id="campo-producto" required>
-              <option value="">Seleccionar producto</option>
-            </select>
-          </div>
-
-          <!-- CANTIDAD -->
-
-          <div class="campo-formulario">
-            <label for="campo-cantidad"> Cantidad: </label>
-
-            <input
-              type="number"
-              id="campo-cantidad"
-              min="1"
-              value="1"
-              required
-            />
-          </div>
-
-          <!-- SEPARADOR -->
-
-          <div class="separador-formulario venta-separador"></div>
-
-          <!-- PRODUCTOS DE LA VENTA -->
-
-          <div class="detalle-venta">
-            <div class="detalle-cabecera">
-              <span> PRODUCTOS </span>
-
-              <span> TOTAL </span>
-            </div>
-
-            <div id="lista-venta" class="lista-venta">
-              <!--
-                        Aquí JavaScript agregará
-                        los productos seleccionados.
-                        -->
-            </div>
-          </div>
-
-          <!-- TOTAL -->
-
-          <div class="total-venta">
-            <span> TOTAL: </span>
-
-            <strong id="total-venta"> 0,00 Bs </strong>
-          </div>
-
-          <!-- BOTONES -->
-
-          <div class="botones-venta">
-            <button type="button" id="btn-cancelar" class="btn-cancelar">
-              CANCELAR
-            </button>
-
-            <button type="submit" class="btn-confirmar">
-              CONFIRMAR
-              <br />
-              VENTA
-            </button>
-          </div>
-
-          <p id="mensaje-venta" class="mensaje-formulario"></p>
-        </form>
+        <a class="acceso" href="pages/clientes.html">
+          <div class="acceso-icono">👥</div>
+          <h3>Clientes</h3>
+          <p>Registra a tus clientes con carnet y celular.</p>
+        </a>
       </section>
     </main>
 
-    <!-- =========================
-         PIE DE PÁGINA
-    ========================== -->
-
+    <!-- PIE DE PÁGINA -->
     <footer id="contacto">
-      <div class="footer-logo">JBC <strong>Comercial</strong></div>
+      <div class="footer-logo">
+        JBC
+        <strong> Comercial </strong>
+      </div>
 
       <p>Equipos de audio, tecnología y accesorios</p>
 
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
-
-    <!-- =========================
-         SUPABASE
-    ========================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script src="js/supabase-client.js"></script>
-
-    <script src="js/app.js"></script>
   </body>
 </html>
