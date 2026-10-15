@@ -52,6 +52,11 @@ const usuarioActualDiv = document.querySelector("#usuario-actual");
 const nombreUsuarioActual = document.querySelector("#nombre-usuario-actual");
 const btnCerrarSesion = document.querySelector("#btn-cerrar-sesion");
 
+// Refresca el resumen de ventas (js/resumen.js) si la página lo tiene
+function refrescarResumen() {
+  if (typeof cargarResumen === "function") cargarResumen();
+}
+
 // =====================================================
 // SESIÓN (Supabase Auth: correo y contraseña)
 // =====================================================
@@ -142,6 +147,7 @@ if (formLogin) {
       mostrarUsuario();
       mostrarMensaje(mensajeLogin, "Sesión iniciada correctamente.", "ok");
       cargarClientes();
+      refrescarResumen();
       campoPassword.value = "";
     } finally {
       boton.disabled = false;
@@ -158,6 +164,7 @@ btnCerrarSesion.addEventListener("click", async function () {
   campoPassword.value = "";
   mostrarMensaje(mensajeLogin, "Sesión cerrada.");
   cargarClientes();
+  refrescarResumen();
 });
 
 // =====================================================
@@ -501,6 +508,7 @@ document
 
       vaciarVenta();
       await cargarProductos();
+      refrescarResumen();
     } finally {
       boton.disabled = false;
     }

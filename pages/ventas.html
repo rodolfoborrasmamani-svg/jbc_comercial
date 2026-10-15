@@ -175,6 +175,104 @@
           <p id="mensaje-venta" class="mensaje-formulario"></p>
         </form>
       </section>
+
+      <!-- =================================================
+           RESUMEN DE VENTAS
+      ================================================== -->
+      <section class="panel" id="resumen-ventas">
+        <div class="panel-titulo">
+          <div>
+            <h2>Resumen de ventas</h2>
+            <p>Filtre por fecha; el total se verifica contra SQL</p>
+          </div>
+          <div class="icono-panel">Bs</div>
+        </div>
+
+        <div class="filtro-barra filtro-fechas">
+          <div class="filtro-categoria">
+            <label for="resumen-desde">Desde</label>
+            <input type="date" id="resumen-desde" class="buscador" />
+          </div>
+
+          <div class="filtro-categoria">
+            <label for="resumen-hasta">Hasta</label>
+            <input type="date" id="resumen-hasta" class="buscador" />
+          </div>
+
+          <!-- Solo lo ve el administrador -->
+          <div class="filtro-categoria" id="filtro-vendedor" hidden>
+            <label for="resumen-vendedor">Vendedor</label>
+            <div class="select-wrap">
+              <select
+                id="resumen-vendedor"
+                class="buscador"
+                aria-label="Filtrar ventas por vendedor"
+              >
+                <option value="">Todos los vendedores</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="btn-consultar-resumen"
+            class="btn-anadir btn-corto"
+          >
+            CONSULTAR
+          </button>
+          <button type="button" id="btn-limpiar-resumen" class="btn-cancelar">
+            VER TODO
+          </button>
+        </div>
+
+        <div class="atajos-fecha" role="group" aria-label="Períodos rápidos">
+          <button type="button" class="btn-tabla" data-rango="hoy">Hoy</button>
+          <button type="button" class="btn-tabla" data-rango="7dias">
+            Últimos 7 días
+          </button>
+          <button type="button" class="btn-tabla" data-rango="mes">
+            Este mes
+          </button>
+        </div>
+
+        <p
+          id="mensaje-resumen"
+          class="mensaje-formulario"
+          aria-live="polite"
+        ></p>
+
+        <div class="resumen-cifras">
+          <div class="cifra">
+            <span>Ventas</span>
+            <strong id="resumen-num-ventas">—</strong>
+          </div>
+          <div class="cifra cifra-total">
+            <span>Total del período</span>
+            <strong id="total-periodo">—</strong>
+          </div>
+          <div class="cifra">
+            <span>Promedio por venta</span>
+            <strong id="resumen-promedio">—</strong>
+          </div>
+        </div>
+
+        <div class="verificacion" id="resumen-verificacion" hidden></div>
+
+        <div class="tabla-contenedor">
+          <table id="tabla-resumen">
+            <thead>
+              <tr>
+                <th>Venta</th>
+                <th>Fecha</th>
+                <th>Vendedor</th>
+                <th>Cliente</th>
+                <th class="num">Total</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-resumen"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
 
     <!-- PIE DE PÁGINA -->
@@ -191,5 +289,6 @@
     <script src="../js/supabase-client.js"></script>
     <script src="../js/utilidades.js"></script>
     <script src="../js/ventas.js"></script>
+    <script src="../js/resumen.js"></script>
   </body>
 </html>

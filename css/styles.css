@@ -1569,3 +1569,124 @@ body.modal-abierto {
 .estado-vacio a:hover {
   text-decoration: underline;
 }
+
+/* =====================================================
+   RESUMEN DE VENTAS
+===================================================== */
+
+.filtro-fechas {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.filtro-fechas .buscador {
+  min-width: 170px;
+}
+
+.btn-corto {
+  width: auto;
+  padding: 11px 22px;
+}
+
+.atajos-fecha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.atajos-fecha .btn-tabla {
+  margin-left: 0;
+}
+
+.resumen-cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.cifra {
+  padding: 16px 18px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--fondo);
+}
+
+.cifra span {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gris);
+}
+
+.cifra strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  color: var(--negro);
+}
+
+.cifra-total {
+  background: var(--verde-claro);
+  border-color: #b9dec8;
+}
+
+.cifra-total strong {
+  color: var(--verde-oscuro);
+}
+
+/* Resultado de la verificación contra SQL */
+.verificacion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.verificacion span {
+  line-height: 1.5;
+}
+
+.verificacion.ok {
+  background: var(--verde-claro);
+  border: 1px solid #b9dec8;
+  color: var(--verde-oscuro);
+}
+
+.verificacion.error {
+  background: #fdeaea;
+  border: 1px solid #f3b9be;
+  color: var(--rojo-oscuro);
+}
+
+@media (max-width: 700px) {
+  .resumen-cifras {
+    grid-template-columns: 1fr;
+  }
+
+  .filtro-fechas .buscador,
+  .btn-corto {
+    width: 100%;
+  }
+}
+
+/* Selector de vendedor del resumen (solo administrador) */
+#resumen-vendedor {
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 230px;
+  padding-right: 40px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  #resumen-vendedor {
+    width: 100%;
+  }
+}
