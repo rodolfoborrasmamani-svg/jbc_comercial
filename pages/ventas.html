@@ -21,9 +21,20 @@
       <nav class="menu">
         <a href="../index.html">Inicio</a>
         <a href="productos.html">Productos</a>
-        <a href="ventas.html" class="activo">Ventas</a>
-        <a href="clientes.html">Clientes</a>
+        <a href="ventas.html" class="activo" data-acceso="sesion" hidden
+          >Ventas</a
+        >
+        <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
+          >Ingresar productos</a
+        >
+        <a href="ventas.html#iniciar-sesion" data-acceso="visitante" hidden
+          >Iniciar sesión</a
+        >
         <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
       </nav>
     </header>
 
@@ -35,6 +46,29 @@
         <p>Inicia sesión, añade los productos y confirma la venta.</p>
       </section>
 
+      <!-- ADMINISTRADOR (solo visible para administradores) -->
+      <section
+        class="admin-barra admin-barra-pagina"
+        id="admin-ventas"
+        data-acceso="admin"
+        hidden
+      >
+        <div>
+          <strong>🛠️ Modo administrador</strong>
+          <span>Gestione a las personas que pueden vender</span>
+        </div>
+        <button type="button" id="btn-nuevo-vendedor" class="btn-barra">
+          + Nuevo vendedor
+        </button>
+      </section>
+      <p
+        id="mensaje-admin-ventas"
+        class="mensaje-formulario"
+        aria-live="polite"
+        data-acceso="admin"
+        hidden
+      ></p>
+
       <!-- INICIAR SESIÓN -->
       <section class="formulario-panel login-panel" id="iniciar-sesion">
         <div class="formulario-titulo">
@@ -42,7 +76,7 @@
           <p>Ingrese sus datos para registrar ventas</p>
         </div>
 
-        <form id="form-login">
+        <form id="form-login" data-acceso="visitante" hidden>
           <div class="campo-formulario">
             <label for="campo-usuario"> CORREO ELECTRÓNICO: </label>
             <input
@@ -88,7 +122,12 @@
       </section>
 
       <!-- REGISTRAR VENTA -->
-      <section class="formulario-panel" id="registrar-venta">
+      <section
+        class="formulario-panel"
+        id="registrar-venta"
+        data-acceso="sesion"
+        hidden
+      >
         <div class="formulario-titulo">
           <h2>REGISTRAR VENTA</h2>
           <p>Añada uno o más productos a la venta</p>
@@ -179,7 +218,7 @@
       <!-- =================================================
            RESUMEN DE VENTAS
       ================================================== -->
-      <section class="panel" id="resumen-ventas">
+      <section class="panel" id="resumen-ventas" data-acceso="sesion" hidden>
         <div class="panel-titulo">
           <div>
             <h2>Resumen de ventas</h2>
@@ -275,6 +314,98 @@
       </section>
     </main>
 
+    <!-- =====================================================
+         NUEVO VENDEDOR (ventana, solo administrador)
+    ====================================================== -->
+    <div class="modal" id="modal-vendedor" hidden>
+      <div
+        class="modal-caja"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-vendedor"
+      >
+        <div class="formulario-titulo">
+          <h2 id="titulo-vendedor">NUEVO VENDEDOR</h2>
+          <p>Se crea su cuenta de acceso. Podrá iniciar sesión de inmediato.</p>
+        </div>
+
+        <form id="form-vendedor" novalidate>
+          <div class="campo-formulario">
+            <label for="vendedor-nombre"> NOMBRE COMPLETO: </label>
+            <input
+              type="text"
+              id="vendedor-nombre"
+              placeholder="Nombre y apellidos"
+              maxlength="80"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="vendedor-email"> CORREO ELECTRÓNICO: </label>
+            <input
+              type="email"
+              id="vendedor-email"
+              placeholder="vendedor@jbccomercial.com"
+              maxlength="120"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="fila-doble">
+            <div class="campo-formulario">
+              <label for="vendedor-password"> CONTRASEÑA: </label>
+              <input
+                type="password"
+                id="vendedor-password"
+                placeholder="Mínimo 8 caracteres"
+                minlength="8"
+                maxlength="72"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+
+            <div class="campo-formulario">
+              <label for="vendedor-password2"> REPETIR CONTRASEÑA: </label>
+              <input
+                type="password"
+                id="vendedor-password2"
+                placeholder="Repita la contraseña"
+                maxlength="72"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+          </div>
+
+          <label class="check-barra check-oscuro">
+            <input type="checkbox" id="vendedor-mostrar" />
+            Mostrar contraseña
+          </label>
+
+          <div class="botones-venta">
+            <button
+              type="button"
+              id="btn-cancelar-vendedor"
+              class="btn-cancelar"
+            >
+              CANCELAR
+            </button>
+            <button type="submit" class="btn-confirmar">CREAR VENDEDOR</button>
+          </div>
+
+          <p
+            id="mensaje-vendedor"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </div>
+
     <!-- PIE DE PÁGINA -->
     <footer id="contacto">
       <div class="footer-logo">
@@ -288,7 +419,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/utilidades.js"></script>
+    <script src="../js/acceso.js"></script>
     <script src="../js/ventas.js"></script>
     <script src="../js/resumen.js"></script>
+    <script src="../js/vendedores.js"></script>
   </body>
 </html>

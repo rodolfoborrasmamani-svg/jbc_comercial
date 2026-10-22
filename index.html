@@ -21,9 +21,24 @@
       <nav class="menu">
         <a href="index.html" class="activo">Inicio</a>
         <a href="pages/productos.html">Productos</a>
-        <a href="pages/ventas.html">Ventas</a>
-        <a href="pages/clientes.html">Clientes</a>
+        <a href="pages/ventas.html" data-acceso="sesion" hidden>Ventas</a>
+        <a href="pages/clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a
+          href="pages/productos.html#ingresar-producto"
+          data-acceso="admin"
+          hidden
+          >Ingresar productos</a
+        >
+        <a
+          href="pages/ventas.html#iniciar-sesion"
+          data-acceso="visitante"
+          hidden
+          >Iniciar sesión</a
+        >
         <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
       </nav>
     </header>
 
@@ -96,19 +111,35 @@
         <a class="acceso" href="pages/productos.html">
           <div class="acceso-icono">📦</div>
           <h3>Productos</h3>
-          <p>Consulta el catálogo por categoría e ingresa productos nuevos.</p>
+          <p>Consulta el catálogo de equipos por categoría.</p>
         </a>
 
-        <a class="acceso" href="pages/ventas.html">
+        <a class="acceso" href="pages/ventas.html" data-acceso="sesion" hidden>
           <div class="acceso-icono">🧾</div>
           <h3>Ventas</h3>
           <p>Inicia sesión y registra ventas con varios productos.</p>
         </a>
 
-        <a class="acceso" href="pages/clientes.html">
+        <a
+          class="acceso"
+          href="pages/clientes.html"
+          data-acceso="sesion"
+          hidden
+        >
           <div class="acceso-icono">👥</div>
           <h3>Clientes</h3>
           <p>Registra a tus clientes con carnet y celular.</p>
+        </a>
+
+        <a
+          class="acceso"
+          href="pages/ventas.html#iniciar-sesion"
+          data-acceso="visitante"
+          hidden
+        >
+          <div class="acceso-icono">🔑</div>
+          <h3>Iniciar sesión</h3>
+          <p>Ingrese para registrar ventas y clientes.</p>
         </a>
       </section>
     </main>
@@ -124,5 +155,10 @@
 
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/utilidades.js"></script>
+    <script src="js/acceso.js"></script>
   </body>
 </html>
