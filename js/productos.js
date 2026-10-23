@@ -19,6 +19,7 @@ const STOCK_BAJO = 5;
 // Se resuelven al iniciar, con la sesión de Supabase Auth.
 let usuarioSesion = null;
 let esAdmin = false;
+let puedeVender = false; // cualquier usuario con sesión puede añadir al carrito
 
 // Columnas de la tabla (para los mensajes de vacío / error)
 let COLUMNAS = 4;
@@ -270,6 +271,7 @@ function mostrarCargando() {
     '<td><span class="skeleton corto"></span></td>' +
     '<td><span class="skeleton derecha"></span></td>' +
     '<td><span class="skeleton derecha"></span></td>' +
+    (puedeVender ? '<td><span class="skeleton derecha"></span></td>' : "") +
     (esAdmin ? '<td><span class="skeleton derecha"></span></td>' : "") +
     "</tr>";
 
@@ -354,6 +356,25 @@ function botonesAdmin(p, baja) {
   );
 }
 
+// Celda con el botón «Añadir» al carrito (js/carrito-productos.js)
+function celdaVender(p, baja, existencia) {
+  if (baja)
+    return '<td class="celda-vender"><span class="stock agotado">De baja</span></td>';
+
+  if (existencia <= 0) {
+    return '<td class="celda-vender"><span class="stock agotado">Agotado</span></td>';
+  }
+
+  return (
+    '<td class="celda-vender">' +
+    '<button type="button" class="btn-tabla btn-agregar" data-agregar="' +
+    escapeHtml(p.id_productos) +
+    '" aria-label="Añadir ' +
+    escapeHtml(p.nombre) +
+    ' al carrito">+ Añadir</button></td>'
+  );
+}
+
 function renderizarTabla(productos) {
   if (productos.length === 0) {
     mostrarVacio();
@@ -405,6 +426,7 @@ function renderizarTabla(productos) {
         '">' +
         existencia +
         "</span></td>" +
+        (puedeVender ? celdaVender(p, baja, existencia) : "") +
         (esAdmin ? botonesAdmin(p, baja) : "") +
         "</tr>"
       );
@@ -610,7 +632,7 @@ formEditar.addEventListener("submit", async function (event) {
     return;
   }
 
-  if (Number.isNaN(precio) || precio < 0) {
+  if (Number.isNaN(precio) || precio <= 0) {
     mostrarMensaje(mensajeEdicion, "Ingrese un precio válido.", "error");
     return;
   }
@@ -857,7 +879,7 @@ document
       return;
     }
 
-    if (!cantidad || cantidad < 1) {
+    if (!Number.isInteger(cantidad) || cantidad < 1) {
       mostrarMensaje(
         mensajeProducto,
         "La cantidad debe ser mayor a 0.",
@@ -866,7 +888,7 @@ document
       return;
     }
 
-    if (!precio || precio < 0) {
+    if (Number.isNaN(precio) || precio <= 0) {
       mostrarMensaje(mensajeProducto, "Ingrese un precio válido.", "error");
       return;
     }
@@ -955,7 +977,11 @@ async function iniciar() {
   // Quién está conectado (Supabase Auth) y si es administrador
   usuarioSesion = await obtenerPerfilActual();
   esAdmin = esAdministrador(usuarioSesion);
-  COLUMNAS = esAdmin ? 5 : 4;
+  puedeVender = !!usuarioSesion;
+  COLUMNAS = 4 + (puedeVender ? 1 : 0) + (esAdmin ? 1 : 0);
+
+  const colVender = document.querySelector(".col-vender");
+  if (colVender) colVender.hidden = !puedeVender;
 
   iniciarAdmin();
 

@@ -25,6 +25,7 @@
           >Ventas</a
         >
         <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
         <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
           >Ingresar productos</a
         >
@@ -103,7 +104,11 @@
 
           <button type="submit" class="btn-seleccionar">INICIAR SESIÓN</button>
 
-          <p id="mensaje-login" class="mensaje-formulario"></p>
+          <p
+            id="mensaje-login"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
         </form>
 
         <!-- USUARIO CONECTADO -->
@@ -211,7 +216,11 @@
             </button>
           </div>
 
-          <p id="mensaje-venta" class="mensaje-formulario"></p>
+          <p
+            id="mensaje-venta"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
         </form>
       </section>
 
@@ -297,6 +306,10 @@
 
         <div class="verificacion" id="resumen-verificacion" hidden></div>
 
+        <p class="ayuda-campo" data-acceso="admin" hidden>
+          Haga clic en una venta para ver su detalle.
+        </p>
+
         <div class="tabla-contenedor">
           <table id="tabla-resumen">
             <thead>
@@ -317,6 +330,34 @@
     <!-- =====================================================
          NUEVO VENDEDOR (ventana, solo administrador)
     ====================================================== -->
+    <!-- DETALLE DE UNA VENTA (solo administrador) -->
+    <div class="modal" id="modal-detalle-venta" hidden>
+      <div
+        class="modal-caja modal-ancha"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-detalle-venta"
+      >
+        <div class="formulario-titulo">
+          <h2 id="titulo-detalle-venta">DETALLE DE VENTA</h2>
+        </div>
+
+        <div id="contenido-detalle-venta" aria-live="polite"></div>
+
+        <div class="botones-venta">
+          <button type="button" id="btn-cerrar-detalle" class="btn-cancelar">
+            CERRAR
+          </button>
+          <a
+            id="enlace-factura"
+            class="btn-confirmar btn-enlace-grande"
+            href="facturacion.html"
+            >VER FACTURA</a
+          >
+        </div>
+      </div>
+    </div>
+
     <div class="modal" id="modal-vendedor" hidden>
       <div
         class="modal-caja"
@@ -416,12 +457,15 @@
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/utilidades.js"></script>
     <script src="../js/acceso.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/factura.js"></script>
     <script src="../js/ventas.js"></script>
     <script src="../js/resumen.js"></script>
+    <script src="../js/detalle-venta.js"></script>
     <script src="../js/vendedores.js"></script>
   </body>
 </html>

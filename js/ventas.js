@@ -29,7 +29,8 @@ let usuarioActual = null;
 let productosCache = [];
 
 // Carrito de la venta: [{ id, nombre, precio, cantidad }]
-let carrito = [];
+// Se comparte con la página Productos (js/carrito.js, localStorage)
+let carrito = leerCarrito();
 
 // =====================================================
 // ELEMENTOS DEL HTML
@@ -149,6 +150,13 @@ if (formLogin) {
       cargarClientes();
       refrescarResumen();
       campoPassword.value = "";
+    } catch (error) {
+      console.error("Error de conexión al iniciar sesión:", error);
+      mostrarMensaje(
+        mensajeLogin,
+        "No se pudo conectar. Revise su internet e intente de nuevo.",
+        "error",
+      );
     } finally {
       boton.disabled = false;
     }
@@ -315,6 +323,8 @@ function totalCarrito() {
 }
 
 function renderizarCarrito() {
+  guardarCarrito(carrito); // se conserva al cambiar de página
+
   if (carrito.length === 0) {
     listaVenta.innerHTML =
       '<p class="lista-vacia">Aún no añadió productos a la venta.</p>';
@@ -395,6 +405,7 @@ function anadirAlCarrito() {
       precio: Number(producto.precio),
       cantidad: cantidad,
       categoria: producto.id_categorias,
+      existencia: Number(producto.existencia),
     });
   }
 
@@ -492,23 +503,26 @@ document
         return;
       }
 
-      const total = totalCarrito();
-
+      // La factura muestra el total REAL guardado por la base
       mostrarMensaje(
         mensajeVenta,
-        "Venta N.º " +
-          resultado.data +
-          " registrada correctamente. Vendedor: " +
-          usuarioActual.nombres +
-          " | Total: " +
-          numeroBs(total) +
-          " Bs",
+        "Venta N.º " + resultado.data + " registrada. Abriendo la factura...",
         "ok",
       );
 
       vaciarVenta();
-      await cargarProductos();
-      refrescarResumen();
+      window.location.href =
+        "facturacion.html?venta=" +
+        encodeURIComponent(resultado.data) +
+        "&nueva=1";
+      return;
+    } catch (error) {
+      console.error("Error de conexión al registrar venta:", error);
+      mostrarMensaje(
+        mensajeVenta,
+        "No se pudo conectar. Revise su internet. La venta NO se registró.",
+        "error",
+      );
     } finally {
       boton.disabled = false;
     }

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facturación | JBC Comercial</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+
+  <body>
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+      <div class="logo">
+        <div class="logo-icono">JBC</div>
+        <div>
+          <h1>JBC Comercial</h1>
+          <p>EQUIPOS DE AUDIO Y TECNOLOGÍA</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="../index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html" data-acceso="sesion" hidden>Ventas</a>
+        <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="facturacion.html" class="activo" data-acceso="sesion" hidden
+          >Facturación</a
+        >
+        <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
+          >Ingresar productos</a
+        >
+        <a href="ventas.html#iniciar-sesion" data-acceso="visitante" hidden
+          >Iniciar sesión</a
+        >
+        <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
+      </nav>
+    </header>
+
+    <main class="contenedor">
+      <!-- CABECERA DE LA PÁGINA -->
+      <section class="cabecera-pagina">
+        <span class="etiqueta"> FACTURACIÓN </span>
+        <h2>Detalle de facturación</h2>
+        <p>Consulte la factura de cada venta realizada y imprímala.</p>
+      </section>
+
+      <!-- SIN SESIÓN -->
+      <section class="panel aviso-sesion" data-acceso="visitante" hidden>
+        <div class="estado-vacio">
+          <div class="icono">🔒</div>
+          <h4>Inicie sesión para ver las facturas</h4>
+          <p>Los datos de las ventas son privados.</p>
+          <a class="btn-enlace" href="ventas.html#iniciar-sesion"
+            >Iniciar sesión</a
+          >
+        </div>
+      </section>
+
+      <!-- FACTURA SELECCIONADA -->
+      <section class="panel" id="factura-panel" hidden>
+        <div class="panel-titulo no-imprimir">
+          <div>
+            <h2>Factura</h2>
+            <p id="factura-subtitulo">Detalle de la venta seleccionada</p>
+          </div>
+          <div class="icono-panel">📄</div>
+        </div>
+
+        <p
+          id="mensaje-factura"
+          class="mensaje-formulario no-imprimir"
+          aria-live="polite"
+        ></p>
+
+        <div id="factura-contenido"></div>
+
+        <div class="botones-venta no-imprimir">
+          <button type="button" id="btn-cerrar-factura" class="btn-cancelar">
+            VOLVER A LA LISTA
+          </button>
+          <button type="button" id="btn-imprimir" class="btn-confirmar">
+            IMPRIMIR
+          </button>
+        </div>
+      </section>
+
+      <!-- LISTA DE VENTAS -->
+      <section
+        class="panel no-imprimir"
+        id="lista-facturas"
+        data-acceso="sesion"
+        hidden
+      >
+        <div class="panel-titulo">
+          <div>
+            <h2>Ventas realizadas</h2>
+            <p id="facturas-subtitulo">Las últimas 100 ventas</p>
+          </div>
+          <div class="icono-panel">Bs</div>
+        </div>
+
+        <p
+          id="mensaje-facturas"
+          class="mensaje-formulario"
+          aria-live="polite"
+        ></p>
+
+        <div class="tabla-contenedor">
+          <table id="tabla-facturas">
+            <thead>
+              <tr>
+                <th>Venta</th>
+                <th>Fecha</th>
+                <th>Vendedor</th>
+                <th>Cliente</th>
+                <th class="num">Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-facturas"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto">
+      <div class="footer-logo">
+        JBC
+        <strong> Comercial </strong>
+      </div>
+      <p>Equipos de audio, tecnología y accesorios</p>
+      <p class="copyright">© 2026 JBC Comercial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/utilidades.js"></script>
+    <script src="../js/acceso.js"></script>
+    <script src="../js/factura.js"></script>
+    <script src="../js/facturacion.js"></script>
+  </body>
+</html>

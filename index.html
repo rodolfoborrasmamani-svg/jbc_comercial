@@ -23,6 +23,9 @@
         <a href="pages/productos.html">Productos</a>
         <a href="pages/ventas.html" data-acceso="sesion" hidden>Ventas</a>
         <a href="pages/clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="pages/facturacion.html" data-acceso="sesion" hidden
+          >Facturación</a
+        >
         <a
           href="pages/productos.html#ingresar-producto"
           data-acceso="admin"
@@ -133,6 +136,17 @@
 
         <a
           class="acceso"
+          href="pages/facturacion.html"
+          data-acceso="sesion"
+          hidden
+        >
+          <div class="acceso-icono">📄</div>
+          <h3>Facturación</h3>
+          <p>Consulta el detalle de facturación de cada venta realizada.</p>
+        </a>
+
+        <a
+          class="acceso"
           href="pages/ventas.html#iniciar-sesion"
           data-acceso="visitante"
           hidden
@@ -156,7 +170,7 @@
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
     <script src="js/supabase-client.js"></script>
     <script src="js/utilidades.js"></script>
     <script src="js/acceso.js"></script>

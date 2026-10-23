@@ -28,6 +28,9 @@ const resAtajos = document.querySelectorAll("[data-rango]");
 const resFiltroVendedor = document.querySelector("#filtro-vendedor");
 const resVendedor = document.querySelector("#resumen-vendedor");
 
+// Solo el administrador puede abrir el detalle de una venta (js/detalle-venta.js)
+let resEsAdmin = false;
+
 let vendedoresCargados = false; // la lista se carga una vez por sesión de admin
 
 let consultaEnCurso = 0; // descarta respuestas viejas
@@ -253,14 +256,21 @@ function pintarVentas(ventas, nombres) {
   resCuerpo.innerHTML = ventas
     .map(function (v) {
       const cliente =
-        nombres.clientes.get(String(v.id_cliente)) ||
-        "Cliente " + escapeHtml(v.id_cliente);
+        nombres.clientes.get(String(v.id_cliente)) || "Cliente " + v.id_cliente;
       const vendedor =
         nombres.usuarios.get(String(v.id_usuarios)) ||
-        "Usuario " + escapeHtml(v.id_usuarios);
+        "Usuario " + v.id_usuarios;
 
       return (
-        '<tr class="fila-dato">' +
+        '<tr class="fila-dato' +
+        (resEsAdmin ? " fila-clic" : "") +
+        '"' +
+        (resEsAdmin
+          ? ' data-venta="' +
+            escapeHtml(v.id_ventas) +
+            '" tabindex="0" role="button" title="Ver el detalle de esta venta"'
+          : "") +
+        ">" +
         "<td>N.º " +
         escapeHtml(v.id_ventas) +
         "</td>" +
@@ -369,6 +379,7 @@ async function cargarResumen() {
   if (idConsulta !== consultaEnCurso) return;
 
   if (!perfil) {
+    resEsAdmin = false;
     limpiarResultados();
     pintarVacio(
       "Inicie sesión para ver el resumen",
@@ -379,6 +390,7 @@ async function cargarResumen() {
   }
 
   const admin = esAdministrador(perfil);
+  resEsAdmin = admin;
 
   await prepararFiltroVendedor(admin);
 
@@ -460,6 +472,12 @@ async function cargarResumen() {
   } finally {
     if (idConsulta === consultaEnCurso) resBtnConsultar.disabled = false;
   }
+}
+
+// Vuelve a leer la lista de vendedores (p. ej. tras crear uno nuevo)
+function recargarVendedores() {
+  vendedoresCargados = false;
+  return cargarResumen();
 }
 
 // =====================================================

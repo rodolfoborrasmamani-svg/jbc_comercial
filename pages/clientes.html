@@ -21,9 +21,21 @@
       <nav class="menu">
         <a href="../index.html">Inicio</a>
         <a href="productos.html">Productos</a>
-        <a href="ventas.html">Ventas</a>
-        <a href="clientes.html" class="activo">Clientes</a>
+        <a href="ventas.html" data-acceso="sesion" hidden>Ventas</a>
+        <a href="clientes.html" class="activo" data-acceso="sesion" hidden
+          >Clientes</a
+        >
+        <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
+        <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
+          >Ingresar productos</a
+        >
+        <a href="ventas.html#iniciar-sesion" data-acceso="visitante" hidden
+          >Iniciar sesión</a
+        >
         <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
       </nav>
     </header>
 
@@ -35,8 +47,25 @@
         <p>Guarda el nombre, carnet de identidad y celular de cada cliente.</p>
       </section>
 
+      <!-- SIN SESIÓN -->
+      <section class="panel aviso-sesion" data-acceso="visitante" hidden>
+        <div class="estado-vacio">
+          <div class="icono">🔒</div>
+          <h4>Inicie sesión para ver y registrar clientes</h4>
+          <p>Los datos de los clientes son privados.</p>
+          <a class="btn-enlace" href="ventas.html#iniciar-sesion"
+            >Iniciar sesión</a
+          >
+        </div>
+      </section>
+
       <!-- REGISTRAR CLIENTE -->
-      <section class="formulario-panel" id="registrar-cliente">
+      <section
+        class="formulario-panel"
+        id="registrar-cliente"
+        data-acceso="sesion"
+        hidden
+      >
         <div class="formulario-titulo">
           <h2>REGISTRAR CLIENTE</h2>
           <p>Complete los datos del cliente</p>
@@ -86,12 +115,16 @@
             REGISTRAR CLIENTE
           </button>
 
-          <p id="mensaje-cliente" class="mensaje-formulario"></p>
+          <p
+            id="mensaje-cliente"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
         </form>
       </section>
 
       <!-- LISTA DE CLIENTES -->
-      <section class="panel" id="lista-clientes">
+      <section class="panel" id="lista-clientes" data-acceso="sesion" hidden>
         <div class="panel-titulo">
           <div>
             <h2>Clientes registrados</h2>
@@ -143,9 +176,10 @@
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/utilidades.js"></script>
+    <script src="../js/acceso.js"></script>
     <script src="../js/clientes.js"></script>
   </body>
 </html>

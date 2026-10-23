@@ -21,9 +21,19 @@
       <nav class="menu">
         <a href="../index.html">Inicio</a>
         <a href="productos.html" class="activo">Productos</a>
-        <a href="ventas.html">Ventas</a>
-        <a href="clientes.html">Clientes</a>
+        <a href="ventas.html" data-acceso="sesion" hidden>Ventas</a>
+        <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
+        <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
+          >Ingresar productos</a
+        >
+        <a href="ventas.html#iniciar-sesion" data-acceso="visitante" hidden
+          >Iniciar sesión</a
+        >
         <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
       </nav>
     </header>
 
@@ -143,6 +153,7 @@
                 <th>Categoría</th>
                 <th class="num">Precio</th>
                 <th class="num">Existencia</th>
+                <th class="col-vender" hidden>Venta</th>
                 <th class="col-acciones" hidden>Acciones</th>
               </tr>
             </thead>
@@ -152,7 +163,12 @@
       </section>
 
       <!-- INGRESAR PRODUCTOS -->
-      <section class="formulario-panel" id="ingresar-producto">
+      <section
+        class="formulario-panel"
+        id="ingresar-producto"
+        data-acceso="admin"
+        hidden
+      >
         <div class="formulario-titulo">
           <h2>INGRESAR PRODUCTOS</h2>
           <p>Registre nuevos productos en el sistema</p>
@@ -233,7 +249,11 @@
             REGISTRAR PRODUCTO
           </button>
 
-          <p id="mensaje-producto" class="mensaje-formulario"></p>
+          <p
+            id="mensaje-producto"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
         </form>
       </section>
     </main>
@@ -320,7 +340,91 @@
             <button type="submit" class="btn-confirmar">GUARDAR CAMBIOS</button>
           </div>
 
-          <p id="mensaje-edicion" class="mensaje-formulario"></p>
+          <p
+            id="mensaje-edicion"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- CARRITO DE VENTA (solo con sesión) -->
+    <button
+      type="button"
+      id="carrito-flotante"
+      class="carrito-flotante"
+      data-acceso="sesion"
+      hidden
+    >
+      <span class="carrito-icono" aria-hidden="true">🛒</span>
+      <span>Carrito <strong id="carrito-cantidad">0</strong></span>
+      <span id="carrito-total-flotante" class="carrito-total-flotante"
+        >0,00 Bs</span
+      >
+    </button>
+
+    <div class="modal" id="modal-carrito" hidden>
+      <div
+        class="modal-caja modal-ancha"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-carrito"
+      >
+        <div class="formulario-titulo">
+          <h2 id="titulo-carrito">CARRITO DE VENTA</h2>
+          <p>Revise los productos y confirme la venta</p>
+        </div>
+
+        <form id="form-carrito">
+          <div class="campo-formulario">
+            <label for="carrito-cliente"> CLIENTE: </label>
+            <select id="carrito-cliente" required>
+              <option value="">Seleccionar cliente</option>
+            </select>
+            <small class="ayuda-campo">
+              ¿No está en la lista?
+              <a href="clientes.html">Registrar cliente</a>
+            </small>
+          </div>
+
+          <div class="detalle-venta">
+            <div class="detalle-cabecera">
+              <span> PRODUCTOS </span>
+              <span> TOTAL </span>
+            </div>
+            <div id="carrito-lista" class="lista-venta"></div>
+          </div>
+
+          <div class="total-venta">
+            <span> TOTAL: </span>
+            <strong id="carrito-total"> 0,00 Bs </strong>
+          </div>
+
+          <div class="botones-venta">
+            <button type="button" id="carrito-seguir" class="btn-cancelar">
+              SEGUIR COMPRANDO
+            </button>
+            <button type="submit" id="carrito-confirmar" class="btn-confirmar">
+              CONFIRMAR
+              <br />
+              VENTA
+            </button>
+          </div>
+
+          <button
+            type="button"
+            id="carrito-vaciar"
+            class="btn-tabla btn-peligro"
+          >
+            Vaciar carrito
+          </button>
+
+          <p
+            id="mensaje-carrito"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
         </form>
       </div>
     </div>
@@ -335,9 +439,12 @@
       <p class="copyright">© 2026 JBC Comercial</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
     <script src="../js/supabase-client.js"></script>
     <script src="../js/utilidades.js"></script>
+    <script src="../js/acceso.js"></script>
+    <script src="../js/carrito.js"></script>
     <script src="../js/productos.js"></script>
+    <script src="../js/carrito-productos.js"></script>
   </body>
 </html>

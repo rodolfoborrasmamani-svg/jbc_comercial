@@ -1690,3 +1690,294 @@ body.modal-abierto {
     width: 100%;
   }
 }
+
+/* =====================================================
+   ACCESO SEGÚN SESIÓN, ADMINISTRACIÓN DE VENDEDORES
+===================================================== */
+
+/* Tarjetas de acceso del inicio: las visibles ocupan todo el ancho */
+.accesos {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Barra de administrador como bloque de página */
+.admin-barra-pagina {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.btn-barra {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9px;
+  background: var(--verde);
+  color: var(--blanco);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-barra:hover,
+.btn-barra:focus-visible {
+  outline: none;
+  background: var(--verde-oscuro);
+  transform: translateY(-1px);
+}
+
+/* Casilla sobre fondo claro (la de la barra oscura es blanca) */
+.check-oscuro {
+  margin-bottom: 6px;
+  color: var(--negro);
+}
+
+/* Enlace con aspecto de botón */
+.btn-enlace {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 9px;
+  background: var(--verde);
+  color: var(--blanco);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.btn-enlace:hover {
+  background: var(--verde-oscuro);
+}
+
+.estado-vacio a.btn-enlace {
+  color: var(--blanco);
+}
+
+.estado-vacio a.btn-enlace:hover {
+  text-decoration: none;
+}
+
+.aviso-sesion {
+  margin-top: 25px;
+}
+
+/* =====================================================
+   CARRITO, DETALLE DE VENTA Y FACTURACIÓN
+===================================================== */
+
+.modal-ancha {
+  width: min(720px, 100%);
+}
+
+/* Filas del resumen que el administrador puede abrir */
+.fila-clic {
+  cursor: pointer;
+}
+
+.fila-clic:hover,
+.fila-clic:focus-visible {
+  background: var(--verde-claro);
+  outline: none;
+}
+
+.btn-enlace-grande {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Botón «+ Añadir» de la tabla de productos */
+.celda-vender {
+  white-space: nowrap;
+}
+
+.btn-agregar {
+  background: var(--verde-claro);
+  border-color: var(--verde);
+  color: var(--verde-oscuro);
+  font-weight: 700;
+}
+
+.btn-agregar:hover,
+.btn-agregar:focus-visible {
+  background: var(--verde);
+  color: var(--blanco);
+}
+
+/* Botón flotante del carrito */
+.carrito-flotante {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 999px;
+  background: var(--verde);
+  color: var(--blanco);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.carrito-flotante:hover,
+.carrito-flotante:focus-visible {
+  background: var(--verde-oscuro);
+}
+
+.carrito-flotante[hidden] {
+  display: none;
+}
+
+.carrito-total-flotante {
+  padding-left: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Cantidad con − y + dentro del carrito */
+.cantidad-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.btn-cant {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--blanco);
+  color: var(--negro);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-cant:hover,
+.btn-cant:focus-visible {
+  border-color: var(--verde);
+  color: var(--verde-oscuro);
+}
+
+#carrito-vaciar {
+  margin-top: 12px;
+}
+
+/* ---------- Factura ---------- */
+.factura {
+  padding: 22px;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  background: var(--blanco);
+}
+
+.factura-cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--verde);
+}
+
+.factura-cabecera span {
+  display: block;
+  color: var(--gris);
+  font-size: 13px;
+}
+
+.factura-marca {
+  font-size: 22px;
+  color: var(--verde-oscuro);
+}
+
+.factura-numero {
+  text-align: right;
+}
+
+.factura-numero strong {
+  font-size: 20px;
+}
+
+.factura-datos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  margin: 16px 0;
+}
+
+.factura-datos dt {
+  color: var(--gris);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.factura-datos dd {
+  font-weight: 600;
+}
+
+.factura-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 2px solid var(--negro);
+}
+
+.factura-total strong {
+  font-size: 24px;
+  color: var(--verde-oscuro);
+}
+
+@media (max-width: 700px) {
+  .factura-datos {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-flotante {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+/* ---------- Imprimir: solo la factura ---------- */
+@media print {
+  .encabezado,
+  footer,
+  .no-imprimir,
+  .carrito-flotante,
+  .cabecera-pagina,
+  .aviso-sesion,
+  .modal:not([hidden]) .botones-venta,
+  .modal:not([hidden]) .formulario-titulo {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  #factura-panel,
+  .modal:not([hidden]) {
+    position: static;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: #fff;
+  }
+
+  .modal:not([hidden]) .modal-caja {
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+  }
+}
