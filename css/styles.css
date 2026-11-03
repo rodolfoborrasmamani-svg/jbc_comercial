@@ -1981,3 +1981,75 @@ body.modal-abierto {
     box-shadow: none;
   }
 }
+
+/* ---------- Ticket para impresora térmica de 58 mm ---------- */
+#ticket-impresion {
+  display: none; /* solo existe al imprimir */
+}
+
+/* Papel de 58 mm: el área útil de estas impresoras es de unos 48 mm.
+   Estas medidas se repiten en js/facturacion.js (medirTicket) para
+   calcular el alto de la página. */
+#ticket-impresion {
+  width: 48mm;
+  padding: 3mm 0 8mm;
+  background: #fff;
+  color: #000;
+  font:
+    8.5pt/1.3 "Courier New",
+    Courier,
+    monospace;
+  overflow-wrap: anywhere;
+}
+
+.tk-centro {
+  text-align: center;
+}
+
+.tk-titulo {
+  font-size: 11pt;
+  font-weight: 700;
+}
+
+.tk-sep {
+  margin: 1.5mm 0;
+  border-top: 1px dashed #000;
+}
+
+.tk-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 2mm;
+}
+
+.tk-prod {
+  margin-top: 1mm;
+  font-weight: 700;
+}
+
+.tk-total {
+  font-size: 11pt;
+  font-weight: 700;
+}
+
+@media print {
+  /* Modo ticket: se oculta todo menos el ticket */
+  body.imprimir-ticket > *:not(#ticket-impresion) {
+    display: none !important;
+  }
+
+  body.imprimir-ticket {
+    margin: 0;
+    background: #fff;
+  }
+
+  body.imprimir-ticket #ticket-impresion {
+    display: block !important;
+    margin: 0 auto;
+  }
+
+  /* Modo hoja: el ticket no se imprime */
+  body.imprimir-hoja #ticket-impresion {
+    display: none !important;
+  }
+}

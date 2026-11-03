@@ -81,8 +81,13 @@
           <button type="button" id="btn-cerrar-factura" class="btn-cancelar">
             VOLVER A LA LISTA
           </button>
-          <button type="button" id="btn-imprimir" class="btn-confirmar">
-            IMPRIMIR
+          <button type="button" id="btn-imprimir" class="btn-cancelar">
+            IMPRIMIR HOJA
+          </button>
+          <button type="button" id="btn-imprimir-ticket" class="btn-confirmar">
+            IMPRIMIR TICKET
+            <br />
+            (58 mm)
           </button>
         </div>
       </section>
@@ -125,6 +130,9 @@
         </div>
       </section>
     </main>
+
+    <!-- Ticket para la impresora térmica (solo se ve al imprimir) -->
+    <div id="ticket-impresion" aria-hidden="true"></div>
 
     <!-- PIE DE PÁGINA -->
     <footer id="contacto">

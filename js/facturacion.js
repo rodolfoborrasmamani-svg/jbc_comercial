@@ -18,6 +18,7 @@ const subtituloFactura = document.querySelector("#factura-subtitulo");
 const subtituloLista = document.querySelector("#facturas-subtitulo");
 
 let facturaPeticion = 0; // descarta respuestas viejas si se abren varias seguidas
+let facturaActual = null; // la que se ve en pantalla (para imprimir)
 
 // =====================================================
 // FACTURA SELECCIONADA
@@ -48,6 +49,7 @@ async function mostrarFactura(idVenta, opciones) {
       return;
     }
 
+    facturaActual = factura;
     contenidoFactura.innerHTML = htmlFactura(factura);
 
     if (opciones && opciones.nueva) {
@@ -74,6 +76,7 @@ function cerrarFactura() {
   facturaPeticion++;
   panelFactura.hidden = true;
   contenidoFactura.innerHTML = "";
+  facturaActual = null;
 
   // Quita ?venta=N de la dirección sin recargar
   try {
@@ -96,9 +99,70 @@ function abrirDesdeLista(idVenta) {
 document
   .querySelector("#btn-cerrar-factura")
   .addEventListener("click", cerrarFactura);
-document.querySelector("#btn-imprimir").addEventListener("click", function () {
+// =====================================================
+// IMPRIMIR
+//   ticket: impresora térmica de rollo, papel de 58 mm
+//           (área útil 48 mm; se define el tamaño de página aquí)
+//   hoja:   impresora normal (carta / A4)
+// =====================================================
+
+// Alto del ticket en mm: el navegador no acepta «58mm auto», así que se
+// mide el ticket ya armado para pedirle una página justa (58 mm de ancho)
+function medirTicketMm() {
+  const ticket = document.querySelector("#ticket-impresion");
+
+  ticket.style.display = "block";
+  ticket.style.position = "absolute";
+  ticket.style.left = "-9999px";
+  ticket.style.top = "0";
+
+  const alto = ticket.offsetHeight;
+
+  ticket.style.display = "";
+  ticket.style.position = "";
+  ticket.style.left = "";
+  ticket.style.top = "";
+
+  return Math.ceil((alto * 25.4) / 96) + 2;
+}
+
+function imprimir(modo) {
+  if (!facturaActual) return;
+
+  if (modo === "ticket") {
+    document.querySelector("#ticket-impresion").innerHTML =
+      htmlTicket(facturaActual);
+  }
+
+  const estilo = document.createElement("style");
+  estilo.id = "estilo-pagina-impresion";
+  estilo.textContent =
+    modo === "ticket"
+      ? "@page { size: 58mm " + medirTicketMm() + "mm; margin: 0; }"
+      : "@page { margin: 12mm; }";
+  document.head.appendChild(estilo);
+
+  document.body.classList.add("imprimir-" + modo);
+
+  function limpiar() {
+    document.body.classList.remove("imprimir-" + modo);
+    estilo.remove();
+    window.removeEventListener("afterprint", limpiar);
+  }
+
+  window.addEventListener("afterprint", limpiar);
   window.print();
+}
+
+document.querySelector("#btn-imprimir").addEventListener("click", function () {
+  imprimir("hoja");
 });
+
+document
+  .querySelector("#btn-imprimir-ticket")
+  .addEventListener("click", function () {
+    imprimir("ticket");
+  });
 
 // =====================================================
 // LISTA DE VENTAS
