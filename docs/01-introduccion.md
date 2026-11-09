@@ -19,7 +19,7 @@ Que se tenga un registro de las cantidades vendidas, los en stok, que muestre lo
 
 ## Planteamiento del problema
 
-### Ferretería San Martín
+### Comercial JBC
 
 [usuarios] tienen el problema de [problema], lo cual [impacto].
 Una solución exitosa debería [criterio de éxito].

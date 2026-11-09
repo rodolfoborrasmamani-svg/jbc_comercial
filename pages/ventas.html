@@ -26,6 +26,7 @@
         >
         <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
         <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
+        <a href="cotizaciones.html" data-acceso="sesion" hidden>Cotizaciones</a>
         <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
           >Ingresar productos</a
         >
@@ -197,6 +198,31 @@
             <div id="lista-venta" class="lista-venta"></div>
           </div>
 
+          <!-- DESCUENTO (opcional) -->
+          <div class="descuento-bloque">
+            <label for="descuento-valor">
+              DESCUENTO AL CLIENTE (opcional):
+            </label>
+            <div class="descuento-campos">
+              <input
+                type="text"
+                id="descuento-valor"
+                inputmode="decimal"
+                placeholder="0,00"
+                autocomplete="off"
+              />
+              <select id="descuento-tipo" aria-label="Tipo de descuento">
+                <option value="monto">Bs</option>
+                <option value="porcentaje">%</option>
+              </select>
+            </div>
+            <small
+              id="descuento-resumen"
+              class="descuento-resumen"
+              aria-live="polite"
+            ></small>
+          </div>
+
           <!-- TOTAL -->
           <div class="total-venta">
             <span> TOTAL: </span>
@@ -301,6 +327,10 @@
           <div class="cifra">
             <span>Promedio por venta</span>
             <strong id="resumen-promedio">—</strong>
+          </div>
+          <div class="cifra">
+            <span>Descuentos otorgados</span>
+            <strong id="resumen-descuentos">—</strong>
           </div>
         </div>
 

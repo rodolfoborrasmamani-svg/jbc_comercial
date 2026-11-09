@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cotizaciones | JBC Comercial</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+
+  <body>
+    <!-- ENCABEZADO -->
+    <header class="encabezado">
+      <div class="logo">
+        <div class="logo-icono">JBC</div>
+        <div>
+          <h1>JBC Comercial</h1>
+          <p>EQUIPOS DE AUDIO Y TECNOLOGÍA</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="../index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html" data-acceso="sesion" hidden>Ventas</a>
+        <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
+        <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
+        <a href="cotizaciones.html" class="activo" data-acceso="sesion" hidden
+          >Cotizaciones</a
+        >
+        <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
+          >Ingresar productos</a
+        >
+        <a href="ventas.html#iniciar-sesion" data-acceso="visitante" hidden
+          >Iniciar sesión</a
+        >
+        <a href="#contacto">Contacto</a>
+        <a href="#" id="menu-cerrar-sesion" data-acceso="sesion" hidden
+          >Cerrar sesión</a
+        >
+      </nav>
+    </header>
+
+    <main class="contenedor">
+      <section class="cabecera-pagina">
+        <span class="etiqueta"> COTIZACIONES </span>
+        <h2>Cotizaciones y proformas</h2>
+        <p>
+          Prepare una cotización para un cliente o empresa e imprímala. No
+          descuenta existencia.
+        </p>
+      </section>
+
+      <!-- SIN SESIÓN -->
+      <section class="panel aviso-sesion" data-acceso="visitante" hidden>
+        <div class="estado-vacio">
+          <div class="icono">🔒</div>
+          <h4>Inicie sesión para hacer cotizaciones</h4>
+          <p>Las cotizaciones son privadas.</p>
+          <a class="btn-enlace" href="ventas.html#iniciar-sesion"
+            >Iniciar sesión</a
+          >
+        </div>
+      </section>
+
+      <!-- PROFORMA SELECCIONADA (sin data-acceso: la muestra el script) -->
+      <section class="panel" id="proforma-panel" hidden>
+        <div class="panel-titulo no-imprimir">
+          <div>
+            <h2>Proforma</h2>
+            <p>Revise, cambie el estado o imprima.</p>
+          </div>
+          <div class="icono-panel">📋</div>
+        </div>
+
+        <p
+          id="mensaje-proforma"
+          class="mensaje-formulario no-imprimir"
+          aria-live="polite"
+        ></p>
+
+        <div id="proforma-contenido"></div>
+
+        <div class="botones-venta no-imprimir">
+          <label class="proforma-estado" for="proforma-estado">
+            Estado
+            <select id="proforma-estado">
+              <option value="pendiente">Pendiente</option>
+              <option value="aceptada">Aceptada</option>
+              <option value="rechazada">Rechazada</option>
+            </select>
+          </label>
+          <button type="button" id="btn-cerrar-proforma" class="btn-cancelar">
+            CERRAR
+          </button>
+          <button
+            type="button"
+            id="btn-imprimir-proforma"
+            class="btn-confirmar"
+          >
+            IMPRIMIR PROFORMA
+          </button>
+        </div>
+      </section>
+
+      <!-- NUEVA COTIZACIÓN -->
+      <section
+        class="panel no-imprimir"
+        id="nueva-cotizacion"
+        data-acceso="sesion"
+        hidden
+      >
+        <div class="panel-titulo">
+          <div>
+            <h2>Nueva cotización</h2>
+            <p>Datos del cliente o empresa y productos a cotizar</p>
+          </div>
+          <div class="icono-panel">＋</div>
+        </div>
+
+        <form id="form-cotizacion" novalidate>
+          <div class="campo-formulario">
+            <label for="cot-cliente"> CLIENTE O EMPRESA: </label>
+            <input
+              type="text"
+              id="cot-cliente"
+              maxlength="150"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="cot-documento"> NIT / CI (opcional): </label>
+            <input
+              type="text"
+              id="cot-documento"
+              maxlength="40"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="cot-contacto">
+              CONTACTO (teléfono, correo o persona; opcional):
+            </label>
+            <input
+              type="text"
+              id="cot-contacto"
+              maxlength="150"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="cot-validez"> VALIDEZ (días): </label>
+            <input
+              type="number"
+              id="cot-validez"
+              value="7"
+              min="1"
+              max="365"
+              step="1"
+              inputmode="numeric"
+            />
+          </div>
+
+          <div class="campo-formulario">
+            <label for="cot-buscar"> BUSCAR PRODUCTO (nombre o marca): </label>
+            <input
+              type="search"
+              id="cot-buscar"
+              placeholder="Ej. micrófono, Shure…"
+              autocomplete="off"
+            />
+            <div id="cot-resultados" class="cot-resultados" hidden></div>
+          </div>
+
+          <div id="cot-lista" class="cot-lista"></div>
+
+          <div class="descuento-bloque">
+            <label for="cot-descuento-valor">
+              DESCUENTO AL CLIENTE (opcional):
+            </label>
+            <div class="descuento-campos">
+              <input
+                type="text"
+                id="cot-descuento-valor"
+                inputmode="decimal"
+                placeholder="0,00"
+                autocomplete="off"
+              />
+              <select id="cot-descuento-tipo" aria-label="Tipo de descuento">
+                <option value="monto">Bs</option>
+                <option value="porcentaje">%</option>
+              </select>
+            </div>
+            <small
+              id="cot-descuento-resumen"
+              class="descuento-resumen"
+              aria-live="polite"
+            ></small>
+          </div>
+
+          <div class="total-venta">
+            <span> TOTAL: </span>
+            <strong id="cot-total"> 0,00 Bs </strong>
+          </div>
+
+          <div class="campo-formulario">
+            <label for="cot-observaciones"> OBSERVACIONES (opcional): </label>
+            <textarea
+              id="cot-observaciones"
+              rows="3"
+              maxlength="500"
+              placeholder="Forma de pago, tiempo de entrega…"
+            ></textarea>
+          </div>
+
+          <p
+            id="mensaje-cotizacion"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
+
+          <div class="botones-venta">
+            <button type="button" id="cot-limpiar" class="btn-cancelar">
+              LIMPIAR
+            </button>
+            <button
+              type="submit"
+              id="cot-guardar"
+              class="btn-confirmar"
+              disabled
+            >
+              GUARDAR COTIZACIÓN
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- LISTA -->
+      <section
+        class="panel no-imprimir"
+        id="lista-cotizaciones"
+        data-acceso="sesion"
+        hidden
+      >
+        <div class="panel-titulo">
+          <div>
+            <h2>Cotizaciones realizadas</h2>
+            <p id="cotizaciones-subtitulo">Las últimas 100 cotizaciones</p>
+          </div>
+          <div class="icono-panel">📋</div>
+        </div>
+
+        <p
+          id="mensaje-cotizaciones"
+          class="mensaje-formulario"
+          aria-live="polite"
+        ></p>
+
+        <div class="tabla-contenedor">
+          <table id="tabla-cotizaciones">
+            <thead>
+              <tr>
+                <th>N.º</th>
+                <th>Fecha</th>
+                <th>Cliente / Empresa</th>
+                <th>Vendedor</th>
+                <th>Estado</th>
+                <th class="num">Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-cotizaciones"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto">
+      <div class="footer-logo">
+        JBC
+        <strong> Comercial </strong>
+      </div>
+      <p>Equipos de audio, tecnología y accesorios</p>
+      <p class="copyright">© 2026 JBC Comercial</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/utilidades.js"></script>
+    <script src="../js/acceso.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/factura.js"></script>
+    <script src="../js/cotizaciones.js"></script>
+  </body>
+</html>

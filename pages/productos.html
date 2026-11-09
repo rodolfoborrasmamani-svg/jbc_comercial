@@ -24,6 +24,7 @@
         <a href="ventas.html" data-acceso="sesion" hidden>Ventas</a>
         <a href="clientes.html" data-acceso="sesion" hidden>Clientes</a>
         <a href="facturacion.html" data-acceso="sesion" hidden>Facturación</a>
+        <a href="cotizaciones.html" data-acceso="sesion" hidden>Cotizaciones</a>
         <a href="productos.html#ingresar-producto" data-acceso="admin" hidden
           >Ingresar productos</a
         >
@@ -256,6 +257,50 @@
           ></p>
         </form>
       </section>
+
+      <!-- SUBIR IMÁGENES POR CÓDIGO -->
+      <section
+        class="formulario-panel"
+        id="subir-imagenes"
+        data-acceso="admin"
+        hidden
+      >
+        <div class="formulario-titulo">
+          <h2>SUBIR IMÁGENES POR CÓDIGO</h2>
+          <p>
+            Nombre cada archivo con el <strong>código del producto</strong> (el
+            número «Cód.» de la tabla): <strong>12.jpg</strong>,
+            <strong>15.png</strong>… Puede elegir varios a la vez.
+          </p>
+        </div>
+
+        <form id="form-imagenes">
+          <div class="campo-formulario">
+            <label for="archivos-imagenes"> IMÁGENES (JPG, PNG o WEBP): </label>
+            <input
+              type="file"
+              id="archivos-imagenes"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+            />
+            <small class="ayuda-campo">
+              Se reducen automáticamente (máx. 800 px) para no saturar el
+              almacenamiento.
+            </small>
+          </div>
+
+          <button type="submit" id="btn-subir-imagenes" class="btn-seleccionar">
+            SUBIR IMÁGENES
+          </button>
+
+          <p
+            id="mensaje-imagenes"
+            class="mensaje-formulario"
+            aria-live="polite"
+          ></p>
+          <ul id="resultados-imagenes" class="img-resultados"></ul>
+        </form>
+      </section>
     </main>
 
     <!-- =====================================================
@@ -296,6 +341,29 @@
               rows="3"
               placeholder="Opcional"
             ></textarea>
+          </div>
+
+          <div class="campo-formulario">
+            <label for="editar-imagen"> IMAGEN: </label>
+            <img
+              id="editar-imagen-vista"
+              class="editar-imagen-vista"
+              alt="Imagen actual"
+              hidden
+            />
+            <input
+              type="file"
+              id="editar-imagen"
+              accept="image/jpeg,image/png,image/webp"
+            />
+            <label
+              class="check-barra check-oscuro"
+              id="editar-quitar-fila"
+              hidden
+            >
+              <input type="checkbox" id="editar-quitar-imagen" />
+              Quitar la imagen actual
+            </label>
           </div>
 
           <div class="fila-doble">
@@ -349,6 +417,22 @@
       </div>
     </div>
 
+    <!-- IMAGEN AMPLIADA -->
+    <div class="modal" id="modal-imagen" hidden>
+      <div
+        class="modal-caja modal-imagen-caja"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="imagen-titulo"
+      >
+        <img id="imagen-ampliada" alt="" />
+        <p id="imagen-titulo" class="imagen-titulo"></p>
+        <button type="button" id="cerrar-imagen" class="btn-cancelar">
+          CERRAR
+        </button>
+      </div>
+    </div>
+
     <!-- CARRITO DE VENTA (solo con sesión) -->
     <button
       type="button"
@@ -394,6 +478,33 @@
               <span> TOTAL </span>
             </div>
             <div id="carrito-lista" class="lista-venta"></div>
+          </div>
+
+          <div class="descuento-bloque">
+            <label for="carrito-descuento-valor">
+              DESCUENTO AL CLIENTE (opcional):
+            </label>
+            <div class="descuento-campos">
+              <input
+                type="text"
+                id="carrito-descuento-valor"
+                inputmode="decimal"
+                placeholder="0,00"
+                autocomplete="off"
+              />
+              <select
+                id="carrito-descuento-tipo"
+                aria-label="Tipo de descuento"
+              >
+                <option value="monto">Bs</option>
+                <option value="porcentaje">%</option>
+              </select>
+            </div>
+            <small
+              id="carrito-descuento-resumen"
+              class="descuento-resumen"
+              aria-live="polite"
+            ></small>
           </div>
 
           <div class="total-venta">
@@ -444,7 +555,9 @@
     <script src="../js/utilidades.js"></script>
     <script src="../js/acceso.js"></script>
     <script src="../js/carrito.js"></script>
+    <script src="../js/imagenes.js"></script>
     <script src="../js/productos.js"></script>
+    <script src="../js/imagenes-admin.js"></script>
     <script src="../js/carrito-productos.js"></script>
   </body>
 </html>

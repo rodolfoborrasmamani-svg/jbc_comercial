@@ -18,7 +18,7 @@
   capacitación extensa.
 - RNF-02 (Disponibilidad): el sistema debe funcionar en cualquier navegador moderno,
   sin instalar nada.
-- RNF-03 (Seguridad): solo Don Ernesto y sus empleados deben poder acceder al
+- RNF-03 (Seguridad): solo Sra Maricruz y sus empleados deben poder acceder al
   sistema.
 - RNF-04 (Compatibilidad): el sistema debe verse y funcionar bien tanto en
   computadora como en celular.

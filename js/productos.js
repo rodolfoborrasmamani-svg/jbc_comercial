@@ -356,6 +356,29 @@ function botonesAdmin(p, baja) {
   );
 }
 
+// Miniatura del producto (clic para ampliar) o recuadro vacío
+function miniaturaProducto(p) {
+  const url = urlImagen(p[COL_IMAGEN]);
+
+  if (!url) {
+    return '<span class="prod-img prod-img-vacia" aria-hidden="true">📦</span>';
+  }
+
+  return (
+    '<button type="button" class="prod-img-btn" data-ampliar="' +
+    escapeHtml(url) +
+    '" data-titulo="' +
+    escapeHtml(p.nombre) +
+    '" aria-label="Ampliar la imagen de ' +
+    escapeHtml(p.nombre) +
+    '">' +
+    '<img class="prod-img" src="' +
+    escapeHtml(url) +
+    '" alt="" width="56" height="56" loading="lazy" decoding="async" />' +
+    "</button>"
+  );
+}
+
 // Celda con el botón «Añadir» al carrito (js/carrito-productos.js)
 function celdaVender(p, baja, existencia) {
   if (baja)
@@ -397,6 +420,9 @@ function renderizarTabla(productos) {
         (baja ? " fila-baja" : "") +
         '">' +
         "<td>" +
+        '<div class="prod-celda">' +
+        miniaturaProducto(p) +
+        '<div class="prod-textos">' +
         '<span class="prod-nombre">' +
         escapeHtml(p.nombre) +
         (baja ? '<span class="badge-baja">BAJA</span>' : "") +
@@ -405,6 +431,7 @@ function renderizarTabla(productos) {
         escapeHtml(p.id_productos) +
         "</span>" +
         descripcion +
+        "</div></div>" +
         "</td>" +
         "<td>" +
         (cat
@@ -583,6 +610,18 @@ function abrirEdicion(producto) {
   document.querySelector("#editar-categoria").value =
     producto.id_categorias || "";
 
+  // Imagen actual (se puede cambiar o quitar)
+  const vista = document.querySelector("#editar-imagen-vista");
+  const urlActual = urlImagen(producto[COL_IMAGEN]);
+
+  vista.hidden = !urlActual;
+  if (urlActual) vista.src = urlActual;
+  else vista.removeAttribute("src");
+
+  document.querySelector("#editar-imagen").value = "";
+  document.querySelector("#editar-quitar-imagen").checked = false;
+  document.querySelector("#editar-quitar-fila").hidden = !urlActual;
+
   mostrarMensaje(mensajeEdicion, "");
   modalEditar.hidden = false;
   document.body.classList.add("modal-abierto");
@@ -651,6 +690,21 @@ formEditar.addEventListener("submit", async function (event) {
     return;
   }
 
+  // La imagen elegida se revisa ANTES de guardar los demás cambios
+  const archivoImagen = document.querySelector("#editar-imagen").files[0];
+  const quitarImagen = document.querySelector("#editar-quitar-imagen").checked;
+
+  if (archivoImagen) {
+    const problemaImagen = validarArchivoImagen(archivoImagen);
+
+    if (problemaImagen) {
+      mostrarMensaje(mensajeEdicion, problemaImagen, "error");
+      return;
+    }
+  }
+
+  const imagenAnterior = (buscarEnLista(id) || {})[COL_IMAGEN] || null;
+
   const cambios = {
     nombre: nombre,
     marca: marca,
@@ -692,11 +746,31 @@ formEditar.addEventListener("submit", async function (event) {
     return;
   }
 
+  // Imagen: se sube la nueva, o se quita la actual
+  let problemaGuardandoImagen = "";
+
+  try {
+    if (archivoImagen) {
+      mostrarMensaje(mensajeEdicion, "Subiendo la imagen...");
+      await subirImagenProducto(id, archivoImagen, imagenAnterior);
+    } else if (quitarImagen && imagenAnterior) {
+      await quitarImagenProducto(id, imagenAnterior);
+    }
+  } catch (error) {
+    console.error("Error con la imagen del producto:", error);
+    problemaGuardandoImagen = error.message;
+  }
+
   cerrarEdicion();
   mostrarMensaje(
     mensajeAdmin,
-    "Producto " + id + " actualizado correctamente.",
-    "ok",
+    problemaGuardandoImagen
+      ? "Producto " +
+          id +
+          " actualizado, pero la imagen no se guardó: " +
+          problemaGuardandoImagen
+      : "Producto " + id + " actualizado correctamente.",
+    problemaGuardandoImagen ? "error" : "ok",
   );
   await cargarProductos();
 });
@@ -801,6 +875,9 @@ async function eliminarProducto(producto) {
     );
     return;
   }
+
+  // La imagen ya no hace falta: se libera el espacio de Storage
+  if (producto[COL_IMAGEN]) await borrarArchivoImagen(producto[COL_IMAGEN]);
 
   mostrarMensaje(
     mensajeAdmin,

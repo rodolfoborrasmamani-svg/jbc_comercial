@@ -100,3 +100,99 @@ async function llenarSelectClientes(select) {
 
   if (previo) select.value = previo;
 }
+
+// =====================================================
+// DESCUENTO AL CLIENTE (opcional)
+// El navegador solo MUESTRA el descuento. Quien lo valida y calcula de
+// verdad, con los precios de la base, es registrar_venta (sql/descuentos.sql).
+// =====================================================
+
+// subtotal en Bs, texto escrito (puede ser "" o "10,5"), tipo "monto" o "porcentaje"
+// Devuelve { descuento (Bs), valor (número escrito), error ("" si está bien) }
+function calcularDescuento(subtotal, texto, tipo) {
+  const limpio = String(texto || "")
+    .trim()
+    .replace(",", ".");
+
+  if (limpio === "") return { descuento: 0, valor: 0, error: "" };
+
+  const valor = Number(limpio);
+
+  if (!Number.isFinite(valor) || valor < 0) {
+    return {
+      descuento: 0,
+      valor: 0,
+      error: "Ingrese un descuento válido (número positivo).",
+    };
+  }
+
+  const base = Math.round(subtotal * 100) / 100;
+  let descuento;
+
+  if (tipo === "porcentaje") {
+    if (valor > 100) {
+      return {
+        descuento: 0,
+        valor: valor,
+        error: "El porcentaje no puede pasar de 100.",
+      };
+    }
+
+    descuento = Math.round(base * valor) / 100; // = base × valor / 100, a centavos
+  } else {
+    descuento = Math.round(valor * 100) / 100;
+  }
+
+  if (descuento > base) {
+    return {
+      descuento: 0,
+      valor: valor,
+      error:
+        "El descuento no puede ser mayor al subtotal (" +
+        numeroBs(base) +
+        " Bs).",
+    };
+  }
+
+  return { descuento: descuento, valor: valor, error: "" };
+}
+
+// Parámetros extra para registrar_venta: solo si hay descuento
+// (sin descuento se llama como siempre, así funciona aunque falte actualizar la base)
+function parametrosDescuento(resultado, tipo) {
+  return resultado.descuento > 0
+    ? {
+        p_descuento: resultado.valor,
+        p_tipo_descuento: tipo === "porcentaje" ? "porcentaje" : "monto",
+      }
+    : {};
+}
+
+// Muestra subtotal, descuento y total final. `ids` = { valor, tipo, resumen, total }
+// Devuelve el resultado de calcularDescuento (más `total` a cobrar).
+function pintarTotalesConDescuento(subtotal, ids) {
+  const r = calcularDescuento(subtotal, ids.valor.value, ids.tipo.value);
+  const resumen = ids.resumen;
+
+  resumen.classList.toggle("error", !!r.error);
+
+  if (r.error) {
+    resumen.textContent = r.error;
+    r.total = subtotal;
+  } else if (r.descuento > 0) {
+    resumen.textContent =
+      "Subtotal " +
+      numeroBs(subtotal) +
+      " Bs − Descuento " +
+      numeroBs(r.descuento) +
+      " Bs";
+    r.total = Math.round((subtotal - r.descuento) * 100) / 100;
+  } else {
+    resumen.textContent = "";
+    r.total = subtotal;
+  }
+
+  ids.total.textContent = numeroBs(r.total) + " Bs";
+
+  return r;
+}
